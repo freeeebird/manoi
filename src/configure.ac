@@ -79,10 +79,11 @@ dnl | Call Shave ( http://damien.lespiau.name/blog/2009/02/18/shave-making-the-a
 dnl SHAVE_INIT
 
 dnl | Configure Config files to generate and output them
-dnl AC_CONFIG_FILES([
-dnl   Makefile
+AC_CONFIG_FILES([
+   Makefile
+])
 dnl   ../base/shave/shave/shave
 dnl   ../base/shave/shave/shave-libtool
-dnl ])
+dnl])
 AC_OUTPUT
 
