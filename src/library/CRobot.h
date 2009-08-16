@@ -64,78 +64,121 @@
 class CRobot
 {
 
-private:
-  int rcb;
-
-  /// FIXME - This makes no sense. Platform specific code should be removed during preprocessing. 
-  // This is why we have "defines" etc. If we include all platform specific code it will enlarge our
-  // binary significantly. In any case, windows.h is not available under GNU/Linux and the WINAPI is
-  // neither.
-
-  char OS; //variable with inforamtion about Operating System 0 - windows
-  
-  int crouch_positions[10][24];
-
-  int leftstep_position[10][24];
-  
-
-  HANDLE hCom;
-  DCB dcbCom; //communications device control structure
-  COMMTIMEOUTS cto; //timeouts 
-
-  
-
-  int OpenCom(int com_number,int baudrate,int parity,int databits,int stopbits);
-  int CloseCom();
-  int SendData(unsigned char* dataBuffer, int bytesToSend);
-  int ReadData(unsigned char* dataBuffer, int bytesToRead);
-
-  void Delay(int ms);
-
-  
-  int GenerateChecksum(unsigned char* commands,int size,bool sevenbitMask);
-  
-  bool RCBReadyCheck();
-
-public:
-
-  CRobot();
-  ~CRobot();
-
-  int GetRCBVersion(unsigned char *out_version /*65 characters*/);
-
-  int Connect(int com_number,int baudrate,int parity,int databits,int stopbits);
-  int Disconnect();
+  private:
+    int rcb;                  ///< FIXME
 
 
-  int SetSingleChannel(int channel, int position, unsigned int speed, int options);
-  int SetAllChannels( int* position, unsigned char speed, int options, int motionIndex,int slotIndex);
-  int GetAllChannels( int* position, unsigned char *speed, int options, int motionIndex,int slotIndex);
+    /// FIXME - This makes no sense. Platform specific code should be removed during preprocessing. 
+    // This is why we have "defines" etc. If we include all platform specific code it will enlarge our
+    // binary significantly. In any case, windows.h is not available under GNU/Linux and the WINAPI is
+    // neither.
+    char OS; //variable with inforamtion about Operating System 0 - windows
 
-  int SetMotionData(int* position, unsigned char speed, char motion, char posnumber);
-  
-  int SetSingleHomePosition(int channel, int position, int option);
-  int SetAllHomePosition(int* position, int option);
-  int GetAllHomePosition(int channel, int* position_out, int option);
 
-  int GetAnalogInputs(float* out_power,float* out_ad1,float* out_ad2,float* out_ad3);
+    int crouch_positions[10][24];
+    int leftstep_position[10][24];
 
-  int SetAllZero();
-  
-  int PlayMotion(char motionIndex);
-  
-  int Crouch();
-  int LeftStep();
+    HANDLE hCom;                  // FIXME: Hungarian Notation in MS style is evil. Don't use it. Even MS says now so.
+    DCB dcbCom;                   ///< communications device control structure
+    COMMTIMEOUTS cto;             ///< timeouts 
 
-  int MotionFromArray(int* position, int framedelay, int framecount, int option);
 
-  int GoToNaturalHumanPosture();
+    /*!
+     * \function OpenCom
+     * \brief Opens the serial port
+     * \param
+     * \returns
+     */
+    int OpenCom(int com_number,int baudrate,int parity,int databits,int stopbits);
 
-  int LearningModeInit();
-  int LearningModeGetServosState(int* positions);
-  int LearningModeEnd();
 
-  int GetCurrentServosState(int* positions);
+    /*!
+     * \function CloseCom
+     * \brief Closes the serial port
+     * \param
+     * \returns
+     */
+    int CloseCom();
+
+
+    /*!
+     * \function SendData
+     * \brief Transmits (TX/RX) data over the Serial (RS-232) interface.
+     * \param
+     * \returns
+     */
+    int SendData(unsigned char* dataBuffer, int bytesToSend);
+
+
+    /*!
+     * \function SendData
+     * \brief Transmits (TX/RX) data over the Serial (RS-232) interface.
+     * \param
+     * \returns
+     */
+    int ReadData(unsigned char* dataBuffer, int bytesToRead);
+
+
+    /*!
+     * \function GenerateChecksum
+     * \brief Transmits (TX/RX) data over the RS-232 interface and checks if the Transfer was ok.
+     * \param
+     * \returns
+     */
+    int GenerateChecksum(unsigned char* commands,int size,bool sevenbitMask);
+
+
+    /*!
+     * \function RCBReadyCheck
+     * \brief Checks if the RCB controller is "ready".
+     * \returns Boolean, true if yes, false if not
+     */
+    bool RCBReadyCheck();
+
+
+    // FIXME: Stuff this into its own utility class
+    void Delay(int ms);
+
+
+  public:
+
+    CRobot();
+    ~CRobot();
+
+    int GetRCBVersion(unsigned char *out_version /*65 characters*/);
+
+    int Connect(int com_number,int baudrate,int parity,int databits,int stopbits);
+    int Disconnect();
+
+
+    int SetSingleChannel(int channel, int position, unsigned int speed, int options);
+    int SetAllChannels( int* position, unsigned char speed, int options, int motionIndex,int slotIndex);
+    int GetAllChannels( int* position, unsigned char *speed, int options, int motionIndex,int slotIndex);
+
+    int SetMotionData(int* position, unsigned char speed, char motion, char posnumber);
+    
+    int SetSingleHomePosition(int channel, int position, int option);
+    int SetAllHomePosition(int* position, int option);
+    int GetAllHomePosition(int channel, int* position_out, int option);
+
+    int GetAnalogInputs(float* out_power,float* out_ad1,float* out_ad2,float* out_ad3);
+
+    int SetAllZero();
+    
+    int PlayMotion(char motionIndex);
+    
+    int Crouch();
+    int LeftStep();
+
+    int MotionFromArray(int* position, int framedelay, int framecount, int option);
+
+    int GoToNaturalHumanPosture();
+
+    int LearningModeInit();
+    int LearningModeGetServosState(int* positions);
+    int LearningModeEnd();
+
+    int GetCurrentServosState(int* positions);
 
 };
 
