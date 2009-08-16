@@ -10,6 +10,7 @@ The Source folder of the Manoi Control Software project contains the following s
 |-- configure.ac                                                  Top level configure.ac for the Autotools chain (LINUX)
 |-- library                                                       This folder contains all platform independent code
 |-- linux                                                         This folder contains all Linux specific code
+|-- tests                                                         This folder contains all test code (TDD etc.)
 `-- windows                                                       This folder contains all Windows specific code
     |-- AssemblyInfo.cpp
     |-- CRobot.cpp
