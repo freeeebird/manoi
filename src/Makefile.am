@@ -14,10 +14,10 @@
 bin_PROGRAMS   = manoi
 
 # To generate this line use e.g.
-# % find -type f -iname "*.c" -or -iname "*.h" | grep -v archive | xargs | sed 's/\.\///g'
+# % find -type f -iname "*.c" -or -iname "*.h" -or -iname "*.hpp" -or -iname "*.cpp" | grep -v archive | xargs | sed 's/\.\///g'
 # or better
 # % rake files_for_autotools
-manoi_SOURCES = 
+manoi_SOURCES = CRobot.cpp AssemblyInfo.cpp CRobot.h resource.h ManoiControl.cpp stdafx.cpp Form1.h stdafx.h
 
 #minimalCLibrary = minimalCLibrary/MStrlen.c minimalCLibrary/MStrcmp.c minimalCLibrary/MStrncmp.c minimalCLibrary/MMemcpy.c \
 #                  minimalCLibrary/MItoa.c minimalCLibrary/MMemset.c \
