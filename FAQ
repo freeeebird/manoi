@@ -1,0 +1,16 @@
+Q: Some information on AutoTools?
+A: Here a free book online. http://www.freesoftwaremagazine.com/books/autotools_a_guide_to_autoconf_automake_libtool
+
+Q: WTH, explain the AutoTools structure!
+A: Ok, it's something like this:
+
+:
+|-- Manoi                               configure.ac    (master)
+|   |
+:   |-- src                             configure.ac    (src)
+    :   :
+
+Every directory which can act as a module has its own configure.ac. It can be used in standalone
+fashion.
+
+
