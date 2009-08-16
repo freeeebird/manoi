@@ -1,0 +1,216 @@
+#! /usr/bin/ruby -w
+
+
+require 'date'
+
+# == Global/Instance Variables
+
+
+
+# == Tasks
+
+# task :clean do |t|
+#   Dir["../*"].each do |d|
+#     if File.directory? d
+#     	cd d
+# 	sh "make clean || true" if File.exist? "Makefile"
+#     end
+#   end
+# end
+
+desc "Open CBrowser with the generate CScope database"
+task :cbrowser do |t|
+
+    files = Dir.glob("documentation/cscope/*.CScope").delete_if { |f| f.to_s.match( "_Files" ) }
+    if( files.empty? )
+        puts "Found no CScope Databases, use ,rake tag' or ,rake tagall' to create a local or project wide CScope Database"
+    else
+        @db = ""
+
+        begin
+            # Determine which db to use
+            if( files.length == 1 )
+                puts "Using ,#{files.first.to_s}' as a cscope database."
+                @db = files.first.to_s
+            else
+                puts "Please choose which database to use: "; puts ;
+                files.each_with_index { |f, i| printf("%-2s | %s\n", i+1, f) } ; puts ;
+                choice = (STDIN.gets).to_i - 1
+                puts ; puts "Using ,#{files[choice]}' as database."
+                @db = files[ choice ].to_s
+            end
+
+            raise ArgumentError, "Didn't find selection !"  if( @db.empty? )
+
+            sh "`which cbrowser` #{@db.to_s} & disown %1"
+        rescue
+            puts "Failed. Probably wrong input."
+        end
+    end
+end
+
+desc "(Re-)generate the CTag/CScope Database for the whole Project folder (including base etc.)"
+task :tagall do |t|
+    folder       = "documentation/cscope"
+    suffix       = "CScope"
+    @list        = "MANOI_Files.#{suffix}"
+    @filename    = "MANOI.#{suffix}"
+
+
+    # Lets create a file list for this project
+    # Except those files and dirs
+    except = {
+        "dirs" => %w[./archive],
+        "files" => %w[]
+    }
+
+    sh "find ../ -type f -iname '*.c' -or -iname '*.h' -or -iname '*.cpp' -or -iname '*.hpp' | egrep -v '#{except["dirs"].join("|").to_s}' | sed 's!^\.!#{Dir.pwd.to_s.chomp}/../!g' > #{folder}/#{@list}"
+
+    # Generate CScope Database, file list etc.
+    Dir.chdir( folder ) do |dir|
+        sh "rm -f #{@filename}" if File.exist? "#{@filename}"
+        # Works with cscope: version 15.6, GNU
+        sh "cscope -b -f #{@filename} -i #{@list} -U"
+    end
+
+    # Lastly, create a symlink to the cscope file
+    sh "rm -f cscope.out" if File.exist? "cscope.out"
+    sh "ln -s '#{folder}/#{@filename}' cscope.out"
+end
+
+
+desc "(Re-)generate the CTag/CScope Database"
+task :tag do |t|
+    folder       = "documentation/cscope"
+    suffix       = "CScope"
+    @list        = "MANOI_Files.#{suffix}"
+    @filename    = "MANOI.#{suffix}"
+
+
+    # Lets create a file list for this project
+    # Except those files and dirs
+    except = {
+        "dirs" => %w[./archive],
+        "files" => %w[]
+    }
+
+    sh "find . -type f -iname '*.c' -or -iname '*.h' -or -iname '*.cpp' -or -iname '*.hpp' | egrep -v '#{except["dirs"].join(" ").to_s}' | sed 's!^\.!#{Dir.pwd.to_s.chomp}!g' > #{folder}/#{@list}"
+
+    # Generate CScope Database, file list etc.
+    Dir.chdir( folder ) do |dir|
+        sh "rm -f #{@filename}" if File.exist? "#{@filename}"
+        # Works with cscope: version 15.6, GNU
+        sh "cscope -b -f #{@filename} -i #{@list} -U"
+    end
+
+    # Lastly, create a symlink to the cscope file
+    sh "rm -f cscope.out" if File.exist? "cscope.out"
+    sh "ln -s '#{folder}/#{@filename}' cscope.out"
+end
+
+desc "Gets rid of all Autoconf files and directories other other generated files except the configure.in and the Makefile.am"
+task :distclean do |t|
+    sh "make distclean || true" if File.exist? "Makefile"         # make a proper clean beforehand
+
+    # Directories from the Autoconf process
+    %w[autom4te.cache].each do |dir|
+        sh "rm -rf #{dir}" if File.exist? "#{dir}"                # File.exist? is messy use Ruby 1.9's Dir.exist?
+    end
+
+
+    # Files from the Autoconf process
+    %w[config.log config.status configure depcomp install-sh missing Makefile.in aclocal.m4 compile].each do |file|
+        sh "rm -f #{file}" if File.exist? "#{file}"
+    end
+
+    # Get rid of the CTag/CScope db
+    %w[documentation/cscope/cscope.out documentation/cscope/MANOI.CScope cscope.out ../cscope.out].each do |file|
+        sh "rm -f #{file}"  # if File.exist? "#{file}"
+    end
+
+    # Get rid of all .cgraph debug traces
+    Dir.glob("**/*.cgraph").each do |file|
+        sh "rm -f #{file}" if File.exists? "#{file}"
+    end
+
+    # Get rid of all .dot files
+    Dir.glob("documentation/dots/*.dot").each do |file|
+        sh "rm -f #{file}" if File.exists? "#{file}"
+    end
+
+    # Get rid of all .png files which were generated from cgraph->dot->png
+    Dir.glob("documentation/pngs/*.png").each do |file|
+        sh "rm -f #{file}" if File.exists? "#{file}"
+    end
+
+end
+
+desc "Bootstrap method to create all necessary Makefiles from the Makefile.am and configure.in, linked with base libraries"
+task :bootstrap => [:tag] do |t|
+  sh 'aclocal'                                      # generates aclocal.m4
+  sh 'autoconf'                                     # generates the config.* scripts
+  sh 'automake --add-missing'                       # generates the Makefile.in
+  sh './configure'        # generates the Makefile(s)
+end
+
+
+desc "Find all files which need to be in the Makefile.am"
+task :files_for_autotools do |t|
+  notTheseDirs = %w[archive templates].join("|").to_s
+  sh "find -type f -iname '*.c' -or -iname '*.h' -or -iname '*.cpp' -or -iname '*.hpp' | egrep -iv '#{notTheseDirs}' | sed 's!./!!' | xargs"
+end
+
+
+desc "Same as above with optional CGraph output of each file for Graphviz"
+task :bootstrap_with_cgraph => [:tag] do |t|
+  # Get rid of all .cgraph debug traces
+  Dir.glob("**/*.cgraph").each do |file|
+    sh "rm -f #{file}" if File.exists? "#{file}"
+  end
+
+  sh 'aclocal'                                      # generates aclocal.m4
+  sh 'autoconf'                                     # generates the config.* scripts
+  sh 'automake --add-missing'                       # generates the Makefile.in add --copy?
+  sh './configure --enable-cgraph `which gcc`'                      # generates the Makefile(s)
+  puts "Trying to build the Source tree and to move the necessary CGraph Files to documentation/cgraph/..."
+  puts "(to continue press enter)"
+  foo = STDIN.gets
+  sh 'make'
+  sh 'find -type f -iname "*.cgraph" | xargs -ifile mv -f file documentation/cgraph/.'
+  puts "Cleaning compile tree..."
+  sh 'make clean'
+  sh 'ls -la documentation/cgraph'
+  puts "Generating Dot files for each CGraph"
+  sh 'ruby scripts/CGraph2Dot.rb'
+  puts "Generating PNG's for each CGraph (DOT)"
+  Dir.glob( "documentation/dots/*.dot" ).each do |f|
+    sh "dot -Tpng #{f} > documentation/pngs/#{File.basename(f, '.dot')}.png"
+  end
+  puts "Finished - see the call graphs in documentation/png/..."
+end
+
+desc "Shows all librarys which can be found in ../base if the LD_LIBRARY_PATH is needed."
+task :get_libs_for_ld_library_path do |t|
+  libs = []
+
+  # FFTW has to many small package libs (for optimization)
+  libs << `find ../base/ -type f -iname "*.a" | egrep -iv "archive|examples|sd|cord|cxx|fftw" | grep -iw "\.libs"`
+  # Include FFTW -all- with threads
+  libs << `find ../base/ -type f -iname "*.a" | egrep -iv "archive|examples|sd|cord|cxx" | grep -iw "\.libs" | egrep -i "libfftw3_threads"`
+  puts "export LD_LIBRARY_PATH="+libs.to_s.split("\n").join(":")
+end
+
+task :default => [:help]
+
+task :help do |t|
+    sh "rake -T"
+end
+
+task :build do |t|
+  sh 'make'
+end
+
+desc "Git Tag number of this repo"
+task :version do |t|
+  sh 'git describe --abbrev=0'
+end
