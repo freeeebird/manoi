@@ -5,3 +5,4 @@
 - GUI portation to GNU/Linux?
 - Serial driver code for GNU/Linux
 - Do we need all this junk from the .NET standard template?
+- Clarify MS Windows dependencies, Version and Software which is needed
