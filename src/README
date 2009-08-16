@@ -1,0 +1,26 @@
+
+The Source folder of the Manoi Control Software project contains the following structure:
+
+.
+|-- Makefile.am                                                   Top level Makefile.am for the Autotools chain (LINUX)
+|-- ManoiControl.vcproj                                           Top level VC Project file (WINDOWS)
+|-- ManoiControl.vcproj.EXPRESS5800S70T.chris.user
+|-- README                                                        This file
+|-- Rakefile                                                      Ruby Rakefile for Top level control and cleanup
+|-- configure.ac                                                  Top level configure.ac for the Autotools chain (LINUX)
+|-- library                                                       This folder contains all platform independent code
+|-- linux                                                         This folder contains all Linux specific code
+`-- windows                                                       This folder contains all Windows specific code
+    |-- AssemblyInfo.cpp
+    |-- CRobot.cpp
+    |-- CRobot.h
+    |-- Form1.h
+    |-- Form1.resX
+    |-- ManoiControl.cpp
+    |-- app.ico
+    |-- app.rc
+    |-- resource.h
+    |-- stdafx.cpp
+    `-- stdafx.h
+
+3 directories, 17 files
