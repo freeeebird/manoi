@@ -1,0 +1,6 @@
+- Enable compiles under GNU/Linux
+- Makefile(s)
+- License unclear
+- Doxygen
+- GUI portation to GNU/Linux?
+- Serial driver code for GNU/Linux
