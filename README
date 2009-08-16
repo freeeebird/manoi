@@ -15,6 +15,30 @@ This package contains two things:
   - A library version which you can link directly to your program
   - A stand alone version which has a nice GUI/CLI interface
 
+
+Compilation under MS Windows
+----------------------------
+
+  1.) Open the VC Project file in Visual Studio
+  2.) ...
+
+
+Compilation under GNU/Linux
+---------------------------
+
+Make sure you installed all build essential tools like Make, Autotools, GCC and Ruby Rake.
+Then:
+
+  1.) rake bootstrap (it will take care of the Autotools init for you)
+  2.) ./configure    (if it didn't already execute)
+  3.) make
+  4.) make tests
+  5.) make install
+
+If you want to have a clean source directory run "rake distclean". If you run into trouble please
+check the FAQ and Autotools manual or your GNU/Linux documentation.
+
+
 References
 ----------
 
