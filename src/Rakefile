@@ -21,7 +21,7 @@ require 'date'
 desc "Open CBrowser with the generate CScope database"
 task :cbrowser do |t|
 
-    files = Dir.glob("documentation/cscope/*.CScope").delete_if { |f| f.to_s.match( "_Files" ) }
+    files = Dir.glob("../documentation/cscope/*.CScope").delete_if { |f| f.to_s.match( "_Files" ) }
     if( files.empty? )
         puts "Found no CScope Databases, use ,rake tag' or ,rake tagall' to create a local or project wide CScope Database"
     else
@@ -51,7 +51,7 @@ end
 
 desc "(Re-)generate the CTag/CScope Database for the whole Project folder (including base etc.)"
 task :tagall do |t|
-    folder       = "documentation/cscope"
+    folder       = "../documentation/cscope"
     suffix       = "CScope"
     @list        = "MANOI_Files.#{suffix}"
     @filename    = "MANOI.#{suffix}"
@@ -81,7 +81,7 @@ end
 
 desc "(Re-)generate the CTag/CScope Database"
 task :tag do |t|
-    folder       = "documentation/cscope"
+    folder       = "../documentation/cscope"
     suffix       = "CScope"
     @list        = "MANOI_Files.#{suffix}"
     @filename    = "MANOI.#{suffix}"
@@ -94,7 +94,7 @@ task :tag do |t|
         "files" => %w[]
     }
 
-    sh "find . -type f -iname '*.c' -or -iname '*.h' -or -iname '*.cpp' -or -iname '*.hpp' | egrep -v '#{except["dirs"].join(" ").to_s}' | sed 's!^\.!#{Dir.pwd.to_s.chomp}!g' > #{folder}/#{@list}"
+    sh "find . -type f -iname '*.c' -or -iname '*.h' -or -iname '*.cpp' -or -iname '*.hpp' | egrep -v '#{except["dirs"].join("|").to_s}' | sed 's!^\.!#{Dir.pwd.to_s.chomp}!g' > #{folder}/#{@list}"
 
     # Generate CScope Database, file list etc.
     Dir.chdir( folder ) do |dir|
@@ -124,7 +124,7 @@ task :distclean do |t|
     end
 
     # Get rid of the CTag/CScope db
-    %w[documentation/cscope/cscope.out documentation/cscope/MANOI.CScope cscope.out ../cscope.out].each do |file|
+    %w[../documentation/cscope/cscope.out ../documentation/cscope/MANOI.CScope cscope.out ../cscope.out].each do |file|
         sh "rm -f #{file}"  # if File.exist? "#{file}"
     end
 
@@ -134,12 +134,12 @@ task :distclean do |t|
     end
 
     # Get rid of all .dot files
-    Dir.glob("documentation/dots/*.dot").each do |file|
+    Dir.glob("../documentation/dots/*.dot").each do |file|
         sh "rm -f #{file}" if File.exists? "#{file}"
     end
 
     # Get rid of all .png files which were generated from cgraph->dot->png
-    Dir.glob("documentation/pngs/*.png").each do |file|
+    Dir.glob("../documentation/pngs/*.png").each do |file|
         sh "rm -f #{file}" if File.exists? "#{file}"
     end
 
@@ -172,21 +172,21 @@ task :bootstrap_with_cgraph => [:tag] do |t|
   sh 'autoconf'                                     # generates the config.* scripts
   sh 'automake --add-missing'                       # generates the Makefile.in add --copy?
   sh './configure --enable-cgraph `which gcc`'                      # generates the Makefile(s)
-  puts "Trying to build the Source tree and to move the necessary CGraph Files to documentation/cgraph/..."
+  puts "Trying to build the Source tree and to move the necessary CGraph Files to ../documentation/cgraph/..."
   puts "(to continue press enter)"
   foo = STDIN.gets
   sh 'make'
-  sh 'find -type f -iname "*.cgraph" | xargs -ifile mv -f file documentation/cgraph/.'
+  sh 'find -type f -iname "*.cgraph" | xargs -ifile mv -f file ../documentation/cgraph/.'
   puts "Cleaning compile tree..."
   sh 'make clean'
-  sh 'ls -la documentation/cgraph'
+  sh 'ls -la ../documentation/cgraph'
   puts "Generating Dot files for each CGraph"
   sh 'ruby scripts/CGraph2Dot.rb'
   puts "Generating PNG's for each CGraph (DOT)"
-  Dir.glob( "documentation/dots/*.dot" ).each do |f|
-    sh "dot -Tpng #{f} > documentation/pngs/#{File.basename(f, '.dot')}.png"
+  Dir.glob( "../documentation/dots/*.dot" ).each do |f|
+    sh "dot -Tpng #{f} > ../documentation/pngs/#{File.basename(f, '.dot')}.png"
   end
-  puts "Finished - see the call graphs in documentation/png/..."
+  puts "Finished - see the call graphs in ../documentation/png/..."
 end
 
 desc "Shows all librarys which can be found in ../base if the LD_LIBRARY_PATH is needed."
