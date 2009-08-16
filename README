@@ -10,7 +10,10 @@ is used to control the RCB controller directly via Serial interface without the 
 
 The original Repository of this software can be found here [2].
 
+This package contains two things:
 
+  - A library version which you can link directly to your program
+  - A stand alone version which has a nice GUI/CLI interface
 
 References
 ----------
