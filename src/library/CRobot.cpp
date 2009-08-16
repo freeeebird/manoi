@@ -43,7 +43,7 @@ int CRobot::OpenCom(int com_number,int baudrate,int parity,int databits,int stop
   {
 
     bool success;
-    switch(OS)
+    switch(OS)                /// FIXME
     {
     case 0: 
       static char pComm[4];
