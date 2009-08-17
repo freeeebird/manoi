@@ -34,13 +34,19 @@
 
 
 // Standard header includes {{{
+#include <stdlib.h>
 #include "libary/copyright.h"                                           ///< Include our Copyright notice in every binary
 #include "libary/CRobot.h"
 // }}}
 
 
+/*!
+ * \function OpenCom
+ * \param
+ * \returns
+ */
 int CRobot::OpenCom(int com_number,int baudrate,int parity,int databits,int stopbits)
-  {
+{
 
     bool success;
     switch(OS)                /// FIXME
