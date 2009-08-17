@@ -227,39 +227,146 @@ class CRobot
 
 
     /*!
-     * \function GetAllChannels
+     * \function SetMotionData
      * \brief
      * \param position
      * \param speed
-     * \param options
-     * \param motionIndex
-     * \param slotIndex
+     * \param motion
+     * \param posnumber
      * \returns Integer, if successful returns true otherwise false
      */
-
     int SetMotionData(int* position, unsigned char speed, char motion, char posnumber);
-    
+
+
+    /*!
+     * \function SetSingleHomePosition
+     * \brief
+     * \param channel
+     * \param position
+     * \param option
+     * \returns Integer, if successful returns true otherwise false
+     */
     int SetSingleHomePosition(int channel, int position, int option);
+
+
+    /*!
+     * \function SetAllHomePosition
+     * \brief
+     * \param position
+     * \param option
+     * \returns Integer, if successful returns true otherwise false
+     */
     int SetAllHomePosition(int* position, int option);
+
+
+    /*!
+     * \function GetAllHomePosition
+     * \brief
+     * \param channel
+     * \param position_out
+     * \param option
+     * \returns Integer, if successful returns true otherwise false
+     */
     int GetAllHomePosition(int channel, int* position_out, int option);
 
-    int GetAnalogInputs(float* out_power,float* out_ad1,float* out_ad2,float* out_ad3);
 
+    /*!
+     * \function GetAnalogInputs
+     * \brief
+     * \param out_power
+     * \param out_ad1
+     * \param out_ad2
+     * \param out_ad3
+     * \returns Integer, if successful returns true otherwise false
+     */
+    int GetAnalogInputs(float* out_power, float* out_ad1, float* out_ad2, float* out_ad3);
+
+
+    /*!
+     * \function SetAllZero
+     * \brief
+     * \returns Integer, if successful returns true otherwise false
+     */
     int SetAllZero();
-    
+
+
+    /*!
+     * \function PlayMotion
+     * \brief
+     * \param motionIndex
+     * \returns Integer, if successful returns true otherwise false
+     */
     int PlayMotion(char motionIndex);
-    
+
+
+    /*!
+     * \function Crouch
+     * \brief
+     * \returns Integer, if successful returns true otherwise false
+     */
     int Crouch();
+
+
+    /*!
+     * \function LeftStep
+     * \brief
+     * \returns Integer, if successful returns true otherwise false
+     */
     int LeftStep();
 
+
+    /*!
+     * \function MotionFromArray
+     * \brief
+     * \param position
+     * \param framedelay
+     * \param framecount
+     * \param option
+     * \returns Integer, if successful returns true otherwise false
+     */
     int MotionFromArray(int* position, int framedelay, int framecount, int option);
 
+
+    /*!
+     * \function GoToNaturalHumanPosture
+     * \brief
+     * \returns Integer, if successful returns true otherwise false
+     * \note FIXME: The naming of this function is not good. Sth like "upright" or "halfSitting" would be better i think.
+     */
     int GoToNaturalHumanPosture();
 
+
+    /*!
+     * \function LearningModeInit
+     * \brief
+     * \returns Integer, if successful returns true otherwise false
+     */
     int LearningModeInit();
+
+
+    /*!
+     * \function LearningModeGetServosState
+     * \brief
+     * \param positions
+     * \returns Integer, if successful returns true otherwise false
+     */
     int LearningModeGetServosState(int* positions);
+
+
+    /*!
+     * \function LearningModeEnd
+     * \brief
+     * \returns Integer, if successful returns true otherwise false
+     */
     int LearningModeEnd();
 
+
+    /*!
+     * \function GetCurrentServosState
+     * \brief
+     * \param positions
+     * \returns Integer, if successful returns true otherwise false
+     */
     int GetCurrentServosState(int* positions);
 
 };
