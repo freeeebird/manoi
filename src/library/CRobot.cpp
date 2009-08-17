@@ -37,93 +37,91 @@
 
 /*!
  * \function OpenCom
- * \param
- * \returns
+ * \brief
+ * \param com_number
+ * \param baudrate
+ * \param parity
+ * \param databits
+ * \param stopbits
+ * \returns Integer, if successful returns true otherwise false
  */
-int CRobot::OpenCom(int com_number,int baudrate,int parity,int databits,int stopbits)
+int CRobot::OpenCom(int com_number, int baudrate, int parity, int databits, int stopbits)
 {
+  bool success;
+  static char pComm[4];                           ///< 
 
-    bool success;
+  pComm[0] = 'C';
+  pComm[1] = 'O';
+  pComm[2] = 'M';
+  pComm[3] = com_number + 48;                     ///< 
 
-      static char pComm[4];
-      pComm[0]='C';
-      pComm[1]='O';
-      pComm[2]='M';
-      pComm[3]=com_number+48;
-      TCHAR *pcCommPort = TEXT("COM6");
-      //wchar_t *pcCommPort = TEXT("COM6");
-      //wchar_t *pcCommPort = new wchar_t[4];
-      //pcCommPort[0]='C';
-      //pcCommPort[1]='O';
-      //pcCommPort[2]='M';
-      //pcCommPort[3]=com_number+48;
+  TCHAR *pcCommPort = TEXT("COM6");               ///< FIXME: Hardcoding is not good
 
-//      mbstowcs(pcCommPort,pComm,4);
-      hCom = CreateFile(pcCommPort,
-      GENERIC_READ|GENERIC_WRITE,
-      0,NULL,
-      OPEN_EXISTING,FILE_ATTRIBUTE_SYSTEM,NULL);
-      
-      if(hCom == INVALID_HANDLE_VALUE)
-        {
-        success=false;
-        }
+  // FIXME: Can we delete this?
+  // wchar_t *pcCommPort = TEXT("COM6");
+  // wchar_t *pcCommPort = new wchar_t[4];
+  // pcCommPort[0]='C';
+  // pcCommPort[1]='O';
+  // pcCommPort[2]='M';
+  // pcCommPort[3]=com_number+48;
+  // mbstowcs(pcCommPort,pComm,4);
 
-    
+  hCom = CreateFile(pcCommPort, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM, NULL);
 
-      cto.ReadIntervalTimeout = 100;
-      cto.ReadTotalTimeoutMultiplier=2;
-      cto.ReadTotalTimeoutConstant=100;
-      cto.WriteTotalTimeoutMultiplier=2;
-      cto.WriteTotalTimeoutConstant=0;
-    
-      dcbCom.BaudRate=baudrate;//9600
-      dcbCom.ByteSize=8;
-      dcbCom.DCBlength=sizeof(DCB);
-      dcbCom.EofChar=0x1A;
-      dcbCom.ErrorChar='?';
-      dcbCom.EvtChar=0x10;
-      dcbCom.fAbortOnError=FALSE;
-      dcbCom.fBinary=TRUE;
-      dcbCom.fDsrSensitivity=FALSE;
-      dcbCom.fDtrControl=DTR_CONTROL_ENABLE;
-      dcbCom.fDummy2=0;
-      dcbCom.fErrorChar=FALSE;
-      dcbCom.fInX=FALSE;
-      dcbCom.fNull=FALSE;
-      dcbCom.fOutX=FALSE;
-      dcbCom.fOutxCtsFlow=FALSE;
-      dcbCom.fOutxDsrFlow=FALSE;
-      dcbCom.fParity=FALSE;
-      dcbCom.fRtsControl=RTS_CONTROL_ENABLE;
-      dcbCom.fTXContinueOnXoff=FALSE;
-      dcbCom.Parity=NOPARITY;
-      dcbCom.StopBits=ONESTOPBIT;
-      dcbCom.wReserved=0;
-      dcbCom.wReserved1=0;//n'était pas définit ???
-      dcbCom.XoffChar=0x13;
-      dcbCom.XoffLim=0x100;
-      dcbCom.XonChar=0x11;
-      dcbCom.XonLim=0x100;
-      
-      SetupComm(hCom, 4096, 4096);
+  // FIXME: Let's use exceptions ! Or we omit them alltogether and use goto's.and handle errors at the end of each function
+  if(hCom == INVALID_HANDLE_VALUE) { success = false; }
 
-      SetCommTimeouts(hCom,&cto);
+  ///! Setting some values necessary for serial communication
+  cto.ReadIntervalTimeout         = 100;                          ///<
+  cto.ReadTotalTimeoutMultiplier  = 2;                            ///<
+  cto.ReadTotalTimeoutConstant    = 100;                          ///<
 
-      success=SetCommState(hCom, &dcbCom);
+  cto.WriteTotalTimeoutMultiplier = 2;                            ///<
+  cto.WriteTotalTimeoutConstant   = 0;                            ///<
 
-      //success=GetCommState(hCom,&dcbCom);    
+  dcbCom.BaudRate                 = baudrate;                     ///< Normally 9600
+  dcbCom.ByteSize                 = 8;                            ///< WTF
+  dcbCom.DCBlength                = sizeof(DCB);                  ///<
+  dcbCom.EofChar                  = 0x1A;                         ///<
+  dcbCom.ErrorChar                = '?';                          ///<
+  dcbCom.EvtChar                  = 0x10;                         ///<
+  dcbCom.fAbortOnError            = FALSE;                        ///<
+  dcbCom.fBinary                  = TRUE;                         ///<
+  dcbCom.fDsrSensitivity          = FALSE;                        ///<
+  dcbCom.fDtrControl              = DTR_CONTROL_ENABLE;           ///<
+  dcbCom.fDummy2                  = 0;                            ///<
+  dcbCom.fErrorChar               = FALSE;                        ///<
+  dcbCom.fInX                     = FALSE;                        ///<
+  dcbCom.fNull                    = FALSE;                        ///<
+  dcbCom.fOutX                    = FALSE;                        ///<
+  dcbCom.fOutxCtsFlow             = FALSE;                        ///<
+  dcbCom.fOutxDsrFlow             = FALSE;                        ///<
+  dcbCom.fParity                  = FALSE;                        ///<
+  dcbCom.fRtsControl              = RTS_CONTROL_ENABLE;           ///<
+  dcbCom.fTXContinueOnXoff        = FALSE;                        ///<
+  dcbCom.Parity                   = NOPARITY;                     ///<
+  dcbCom.StopBits                 = ONESTOPBIT;                   ///<
+  dcbCom.wReserved                = 0;                            ///<
+  dcbCom.wReserved1               = 0;                            ///<
+  dcbCom.XoffChar                 = 0x13;                         ///<
+  dcbCom.XoffLim                  = 0x100;                        ///<
+  dcbCom.XonChar                  = 0x11;                         ///<
+  dcbCom.XonLim                   = 0x100;                        ///<
 
-      //PurgeComm(hCom, PURGE_TXCLEAR|PURGE_RXCLEAR|PURGE_TXABORT|PURGE_RXABORT);
-      //EscapeCommFunction(hCom, SETDTR);
-      //EscapeCommFunction(hCom, CLRDTR);
+  SetupComm(hCom, 4096, 4096);                                    ///<
+  SetCommTimeouts(hCom,&cto);                                     ///<
 
-      
-    
-    return EXIT_SUCCESS;
+  success = SetCommState(hCom, &dcbCom);
 
+  // FIXME: Can we delete this?
+  // success=GetCommState(hCom,&dcbCom);
+  // PurgeComm(hCom, PURGE_TXCLEAR|PURGE_RXCLEAR|PURGE_TXABORT|PURGE_RXABORT);
+  // EscapeCommFunction(hCom, SETDTR);
+  // EscapeCommFunction(hCom, CLRDTR);
 
-  }
+  return EXIT_SUCCESS;
+
+} // end of CRobot::OpenCom
 
 
 int CRobot::CloseCom()
