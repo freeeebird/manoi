@@ -124,27 +124,52 @@ int CRobot::OpenCom(int com_number, int baudrate, int parity, int databits, int 
 } // end of CRobot::OpenCom
 
 
+/*!
+ * \function CloseCom
+ * \brief
+ * \returns Integer, if successful returns true otherwise false
+ */
 int CRobot::CloseCom()
-  {
+{
   CloseHandle(hCom);
+
   return EXIT_SUCCESS;
-  }
+}
 
 
+/*!
+ * \function SendData
+ * \brief
+ * \param dataBuffer
+ * \param bytesToSend
+ * \returns Integer, if successful returns true otherwise false
+ */
 int CRobot::SendData(unsigned char *dataBuffer, int bytesToSend)
-  {
-  int written=-1;
-  bool ok = WriteFile(hCom,dataBuffer,bytesToSend,(LPDWORD)&written,NULL);
+{
+  // int written = -1;    // DELETEME if compile works
+  DWORD written = -1;                                                                     ///<
+  //bool ok = WriteFile(hCom, dataBuffer, bytesToSend, (LPDWORD)&written, NULL);          // FIXME: The cast seems uncessary can we not just create the var with the necessary type? DELETEME
+  bool ok = WriteFile(hCom, dataBuffer, bytesToSend, &written, NULL);                     ///<
   FlushFileBuffers(hCom);
-  return EXIT_SUCCESS;
-  }
 
+  return EXIT_SUCCESS;
+}
+
+
+/*!
+ * \function ReadData
+ * \brief
+ * \param dataBuffer
+ * \param bytesToRead
+ * \returns Integer, if successful returns true otherwise false
+ */
 int CRobot::ReadData(unsigned char *dataBuffer, int bytesToRead)
-  {
-  DWORD read=-1;
-  bool ok = ReadFile(hCom,dataBuffer,bytesToRead,&read,NULL);
+{
+  DWORD read  = -1;
+  bool ok = ReadFile(hCom, dataBuffer, bytesToRead, &read, NULL);
+
   return (int)read;
-  }
+}
 
 
 int CRobot::GenerateChecksum(unsigned char* command,int size,bool sevenbitMask=false)
