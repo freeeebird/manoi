@@ -216,129 +216,134 @@ bool CRobot::RCBReadyCheck()
  */
 CRobot::CRobot()
 {
-//  OS=0;
-  OpenCom(6,115200,1,8,1);
+  OpenCom(6, 115200, 1, 8, 1);                                                // FIXME: hardcoding
 
-  //setting up software switch
-  
+  ///! Setting up software switch
   unsigned int myswitch;
   myswitch &= ~(0x104);
   myswitch |= 0x200;
 
-  unsigned char in_option = 1; //force the ACK
+  unsigned char in_option = 1;                                                ///< force the ACK
 
-    
-  unsigned char command[5];
-  unsigned char rec[2];
+  unsigned char command[5];                                                   ///<
+  unsigned char rec[2];                                                       ///<
 
-    command[0] = 0xF2;
-    command[1] = in_option;
-    command[2] = (myswitch>>8);
-    command[3] = (myswitch&0xFF);
+  command[0] = 0xF2;                                                          ///<
+  command[1] = in_option;                                                     ///<
+  command[2] = (myswitch>>8);                                                 ///<
+  command[3] = (myswitch&0xFF);                                               ///<
+  command[4] = GenerateChecksum(command,5,false);                             ///<
 
-  command[4]= GenerateChecksum(command,5,false);
+  // FIXME: Instead of active loop, monitor pattern
+  while( !RCBReadyCheck() ) { }
 
-  while(!RCBReadyCheck())
+  SendData(command, 5);
+  ReadData(rec, 1);
+
+  ///! Preinit array and reset values which are different
+  for( int i = 0; i <= 3; i++ )
   {
+    for( int j = 0; j <= 22; j++ )
+    {
+      crouch_positions[i][j] = 16384;
+    }
   }
-  SendData(command,5);
-  ReadData(rec,1);
 
-  crouch_positions[0][0]=16384;
-  crouch_positions[0][1]=16384;
-  crouch_positions[0][2]=16384;
-  crouch_positions[0][3]=16384;
-  crouch_positions[0][4]=16384;
-  crouch_positions[0][5]=16384;
-  crouch_positions[0][6]=16384;
-  crouch_positions[0][7]=16384;
-  crouch_positions[0][8]=16384;
-  crouch_positions[0][9]=16384;
-  crouch_positions[0][10]=16384;
-  crouch_positions[0][11]=16384+25;
-  crouch_positions[0][12]=16384+60;
-  crouch_positions[0][13]=16384-40;
-  crouch_positions[0][14]=16384;
-  crouch_positions[0][15]=16384;
-  crouch_positions[0][16]=16384;
-  crouch_positions[0][17]=16384+25;
-  crouch_positions[0][18]=16384+60;
-  crouch_positions[0][19]=16384-40;
-  crouch_positions[0][20]=16384;
-  crouch_positions[0][21]=16384;
-  crouch_positions[0][22]=16384;
+  // crouch_positions[0][0] = 16384;
+  // crouch_positions[0][1] = 16384;
+  // crouch_positions[0][2] = 16384;
+  // crouch_positions[0][3] = 16384;
+  // crouch_positions[0][4] = 16384;
+  // crouch_positions[0][5] = 16384;
+  // crouch_positions[0][6] = 16384;
+  // crouch_positions[0][7] = 16384;
+  // crouch_positions[0][8] = 16384;
+  // crouch_positions[0][9] = 16384;
+  // crouch_positions[0][10] = 16384;
+  crouch_positions[0][11] = 16384+25;
+  crouch_positions[0][12] = 16384+60;
+  crouch_positions[0][13] = 16384-40;
+  // crouch_positions[0][14] = 16384;
+  // crouch_positions[0][15] = 16384;
+  // crouch_positions[0][16] = 16384;
+  crouch_positions[0][17] = 16384+25;
+  crouch_positions[0][18] = 16384+60;
+  crouch_positions[0][19] = 16384-40;
+  // crouch_positions[0][20] = 16384;
+  // crouch_positions[0][21] = 16384;
+  // crouch_positions[0][22] = 16384;
 
-  crouch_positions[1][0]=16384;
-  crouch_positions[1][1]=16384;
-  crouch_positions[1][2]=16384;
-  crouch_positions[1][3]=16384;
-  crouch_positions[1][4]=16384;
-  crouch_positions[1][5]=16384;
-  crouch_positions[1][6]=16384;
-  crouch_positions[1][7]=16384;
-  crouch_positions[1][8]=16384;
-  crouch_positions[1][9]=16384;
-  crouch_positions[1][10]=16384;
+  // crouch_positions[1][0] = 16384;
+  // crouch_positions[1][1] = 16384;
+  // crouch_positions[1][2] = 16384;
+  // crouch_positions[1][3] = 16384;
+  // crouch_positions[1][4] = 16384;
+  // crouch_positions[1][5] = 16384;
+  // crouch_positions[1][6] = 16384;
+  // crouch_positions[1][7] = 16384;
+  // crouch_positions[1][8] = 16384;
+  // crouch_positions[1][9] = 16384;
+  // crouch_positions[1][10]=16384;
   crouch_positions[1][11]=16384+65;
   crouch_positions[1][12]=16384+170;
   crouch_positions[1][13]=16384-100;
-  crouch_positions[1][14]=16384;
-  crouch_positions[1][15]=16384;
-  crouch_positions[1][16]=16384;
+  // crouch_positions[1][14]=16384;
+  // crouch_positions[1][15]=16384;
+  // crouch_positions[1][16]=16384;
   crouch_positions[1][17]=16384+65;
   crouch_positions[1][18]=16384+170;
   crouch_positions[1][19]=16384-100;
-  crouch_positions[1][20]=16384;
-  crouch_positions[1][21]=16384;
-  crouch_positions[1][22]=16384;
-
-  crouch_positions[2][0]=16384;
-  crouch_positions[2][1]=16384;
-  crouch_positions[2][2]=16384;
-  crouch_positions[2][3]=16384;
-  crouch_positions[2][4]=16384;
-  crouch_positions[2][5]=16384;
-  crouch_positions[2][6]=16384;
-  crouch_positions[2][7]=16384;
-  crouch_positions[2][8]=16384;
-  crouch_positions[2][9]=16384;
-  crouch_positions[2][10]=16384;
+  // crouch_positions[1][20]=16384;
+  // crouch_positions[1][21]=16384;
+  // crouch_positions[1][22]=16384;
+  //
+  // crouch_positions[2][0]=16384;
+  // crouch_positions[2][1]=16384;
+  // crouch_positions[2][2]=16384;
+  // crouch_positions[2][3]=16384;
+  // crouch_positions[2][4]=16384;
+  // crouch_positions[2][5]=16384;
+  // crouch_positions[2][6]=16384;
+  // crouch_positions[2][7]=16384;
+  // crouch_positions[2][8]=16384;
+  // crouch_positions[2][9]=16384;
+  // crouch_positions[2][10]=16384;
   crouch_positions[2][11]=16384+85;
   crouch_positions[2][12]=16384+200;
   crouch_positions[2][13]=16384-120;
-  crouch_positions[2][14]=16384;
-  crouch_positions[2][15]=16384;
-  crouch_positions[2][16]=16384;
+  // crouch_positions[2][14]=16384;
+  // crouch_positions[2][15]=16384;
+  // crouch_positions[2][16]=16384;
   crouch_positions[2][17]=16384+85;
   crouch_positions[2][18]=16384+200;
   crouch_positions[2][19]=16384-120;
-  crouch_positions[2][20]=16384;
-  crouch_positions[2][21]=16384;
-  crouch_positions[2][22]=16384;
-
-  crouch_positions[3][0]=16384;
-  crouch_positions[3][1]=16384;
-  crouch_positions[3][2]=16384;
-  crouch_positions[3][3]=16384;
-  crouch_positions[3][4]=16384;
-  crouch_positions[3][5]=16384;
-  crouch_positions[3][6]=16384;
-  crouch_positions[3][7]=16384;
-  crouch_positions[3][8]=16384;
-  crouch_positions[3][9]=16384;
-  crouch_positions[3][10]=16384;
+  // crouch_positions[2][20]=16384;
+  // crouch_positions[2][21]=16384;
+  // crouch_positions[2][22]=16384;
+  //
+  // crouch_positions[3][0]=16384;
+  // crouch_positions[3][1]=16384;
+  // crouch_positions[3][2]=16384;
+  // crouch_positions[3][3]=16384;
+  // crouch_positions[3][4]=16384;
+  // crouch_positions[3][5]=16384;
+  // crouch_positions[3][6]=16384;
+  // crouch_positions[3][7]=16384;
+  // crouch_positions[3][8]=16384;
+  // crouch_positions[3][9]=16384;
+  // crouch_positions[3][10]=16384;
   crouch_positions[3][11]=16384+105;
   crouch_positions[3][12]=16384+240;
   crouch_positions[3][13]=16384-140;
-  crouch_positions[3][14]=16384;
-  crouch_positions[3][15]=16384;
-  crouch_positions[3][16]=16384;
+  // crouch_positions[3][14]=16384;
+  // crouch_positions[3][15]=16384;
+  // crouch_positions[3][16]=16384;
   crouch_positions[3][17]=16384+104;
   crouch_positions[3][18]=16384+240;
   crouch_positions[3][19]=16384-140;
-  crouch_positions[3][20]=16384;
-  crouch_positions[3][21]=16384;
-  crouch_positions[3][22]=16384;
+  // crouch_positions[3][20]=16384;
+  // crouch_positions[3][21]=16384;
+  // crouch_positions[3][22]=16384;
 
   leftstep_position[0][0]=16384;
   leftstep_position[0][1]=16384;
