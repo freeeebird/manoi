@@ -47,7 +47,6 @@
  */
 int CRobot::OpenCom(int com_number, int baudrate, int parity, int databits, int stopbits)
 {
-  bool success;
   static char pComm[4];                           ///< 
 
   pComm[0] = 'C';
@@ -69,7 +68,7 @@ int CRobot::OpenCom(int com_number, int baudrate, int parity, int databits, int 
   hCom = CreateFile(pcCommPort, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM, NULL);
 
   // FIXME: Let's use exceptions ! Or we omit them alltogether and use goto's.and handle errors at the end of each function
-  if(hCom == INVALID_HANDLE_VALUE) { success = false; }
+  if( hCom == INVALID_HANDLE_VALUE ) { Utilities::PrintError(); }
 
   ///! Setting some values necessary for serial communication
   cto.ReadIntervalTimeout         = 100;                          ///<
@@ -149,7 +148,7 @@ int CRobot::SendData(unsigned char *dataBuffer, int bytesToSend)
   // int written = -1;    // DELETEME if compile works
   DWORD written = -1;                                                                     ///<
   //bool ok = WriteFile(hCom, dataBuffer, bytesToSend, (LPDWORD)&written, NULL);          // FIXME: The cast seems uncessary can we not just create the var with the necessary type? DELETEME
-  bool ok = WriteFile(hCom, dataBuffer, bytesToSend, &written, NULL);                     ///<
+  if( WriteFile(hCom, dataBuffer, bytesToSend, &written, NULL) == false ) { Utilities::PrintError(); } 
   FlushFileBuffers(hCom);
 
   return EXIT_SUCCESS;
@@ -166,53 +165,55 @@ int CRobot::SendData(unsigned char *dataBuffer, int bytesToSend)
 int CRobot::ReadData(unsigned char *dataBuffer, int bytesToRead)
 {
   DWORD read  = -1;
-  bool ok = ReadFile(hCom, dataBuffer, bytesToRead, &read, NULL);
+  if( ReadFile(hCom, dataBuffer, bytesToRead, &read, NULL) == false ) { Utilities::PrintError(); }
 
   return (int)read;
 }
 
 
-int CRobot::GenerateChecksum(unsigned char* command,int size,bool sevenbitMask=false)
+/*!
+ * \function GenerateChecksum
+ * \brief
+ * \param command
+ * \param size
+ * \param sevenbitMask
+ * \returns Integer, if successful returns true otherwise false
+ */
+int CRobot::GenerateChecksum(unsigned char* command, int size, bool sevenbitMask = false)
 {
-  unsigned char* temp=command;
-  unsigned char checksum=0;
+  unsigned char* temp     = command;
+  unsigned char checksum  = 0;
 
-  for(int i=0;i<size-1;i++)
-    {
-    checksum+=*(temp+i);
-    }
-  if ( sevenbitMask )
-    {
-        checksum &= 0x7F;
-    }
-    else
-    {  
-    checksum &= 0xFF;
-    }
+  for( int i = 0; i < size - 1; i++ ) { checksum += *(temp+i); }              ///<
+
+  ( sevenbitMask ) ? ( checksum &= 0x7F; ) : ( checksum &= 0xFF; )            ///<
+
   return checksum;
 }
 
+
+/*!
+ * \function RCBReadyCheck
+ * \brief
+ * \returns Boolean, if successful returns true otherwise false
+ */
 bool CRobot::RCBReadyCheck()
 {
   unsigned char rec1[2];
   unsigned char command1[2];
-  command1[0]=0x0D;
-  SendData(&command1[0],1);
-  ReadData(rec1,1);
-  if(rec1[0]==13)
-    {
-    return true;
-    }
-  else
-    {
-    return false;
-    }
 
+  command1[0] = 0x0D;                                                         ///< 
+  SendData( &command1[0], 1 );                                                ///<
+  ReadData( rec1, 1 );                                                        ///<
 
+  return ( (rec1[0] == 13) ? true : false );                                  ///< 
 }
 
 
-
+/*!
+ * \function CRobot
+ * \brief
+ */
 CRobot::CRobot()
 {
 //  OS=0;
