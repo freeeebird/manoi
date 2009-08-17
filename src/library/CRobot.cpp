@@ -120,7 +120,7 @@ int CRobot::OpenCom(int com_number,int baudrate,int parity,int databits,int stop
 
       
     
-    return 1;
+    return EXIT_SUCCESS;
 
 
   }
@@ -129,7 +129,7 @@ int CRobot::OpenCom(int com_number,int baudrate,int parity,int databits,int stop
 int CRobot::CloseCom()
   {
   CloseHandle(hCom);
-  return 1;
+  return EXIT_SUCCESS;
   }
 
 
@@ -138,7 +138,7 @@ int CRobot::SendData(unsigned char *dataBuffer, int bytesToSend)
   int written=-1;
   bool ok = WriteFile(hCom,dataBuffer,bytesToSend,(LPDWORD)&written,NULL);
   FlushFileBuffers(hCom);
-  return 1;
+  return EXIT_SUCCESS;
   }
 
 int CRobot::ReadData(unsigned char *dataBuffer, int bytesToRead)
@@ -502,7 +502,7 @@ int CRobot::GetRCBVersion(unsigned char *out_version)
     }
   
   
-  return 1;
+  return EXIT_SUCCESS;
 
 
 }
@@ -559,7 +559,7 @@ int CRobot::SetSingleChannel(int channel, int position, unsigned int speed, int 
   
   if(rec[0]==6)
     {
-    return 1;
+    return EXIT_SUCCESS;
     }
   else
     {
@@ -629,7 +629,7 @@ int CRobot::SetAllChannels(int* position, unsigned char speed, int options, int 
   time2=GetTickCount()-time1;
   if(rec[0]==6)
     {
-    return 1;
+    return EXIT_SUCCESS;
     }
   else
     {
@@ -645,7 +645,7 @@ int CRobot::SetAllZero()
     poslist[i]=16384;
     }
   SetAllChannels(poslist,255,0,1,1);
-return 1;
+return EXIT_SUCCESS;
 }
 
 int CRobot::GetAllChannels(int *position, unsigned char *speed, int options, int motionIndex, int slotIndex)
@@ -671,7 +671,7 @@ int CRobot::GetAllChannels(int *position, unsigned char *speed, int options, int
 
   if(chksum==rec[49])
     {
-    return 1;  
+    return EXIT_SUCCESS;  
     }
   else
     {
@@ -726,7 +726,7 @@ int CRobot::SetMotionData(int* position, unsigned char speed, char motion, char 
   
   if(rec[0]==6)
     {
-    return 1;
+    return EXIT_SUCCESS;
     }
   else
     {
@@ -773,7 +773,7 @@ int CRobot::SetAllHomePosition(int* position, int option)
   
   if(rec[0]==6)
     {
-    return 1;
+    return EXIT_SUCCESS;
     }
   else
     {
@@ -815,7 +815,7 @@ int CRobot::GetAnalogInputs(float* out_power,float* out_ad1,float* out_ad2,float
     (*out_ad2)= (float)ad2 * 0.00532f;
     (*out_ad3) = (float)ad3 * 0.00532f;
 
-    return 1;  
+    return EXIT_SUCCESS;  
     }
   else
     {
@@ -856,7 +856,7 @@ int CRobot::PlayMotion(char motionIndex)
   
   if(rec[0]==6)
     {
-    return 1;
+    return EXIT_SUCCESS;
     }
   else
     {
@@ -873,13 +873,13 @@ int CRobot::Crouch()
   MotionFromArray(&crouch_positions[1][0],500,3,0);
 
   
-  return 1;
+  return EXIT_SUCCESS;
 }
 int CRobot::LeftStep()
 {
   MotionFromArray(&leftstep_position[0][0],1000,6,0);
   
-  return 1;
+  return EXIT_SUCCESS;
 }
 
 int CRobot::MotionFromArray(int* position, int framedelay, int framecount, int option)
@@ -890,13 +890,13 @@ for(int i=0;i<framecount;i++)
     SetAllChannels(position+i*24,150,option,0,0);
     Delay(framedelay);
   }
-return 1;
+return EXIT_SUCCESS;
 
 }
 int CRobot::GoToNaturalHumanPosture()
 {
   SetAllChannels(&crouch_positions[0][0],150,0,0,0);
-  return 1;
+  return EXIT_SUCCESS;
 }
 
 int CRobot::LearningModeInit()
@@ -932,7 +932,7 @@ int CRobot::LearningModeGetServosState(int *positions)
 
   if(chksum==rec[48])
     {
-    return 1;  
+    return EXIT_SUCCESS;  
     }
   else
     {
@@ -959,5 +959,6 @@ int CRobot::GetCurrentServosState(int* positions)
   LearningModeInit();
   result=LearningModeGetServosState(positions);
   LearningModeEnd();
-  return 1;
+  return EXIT_SUCCESS;
 }
+
