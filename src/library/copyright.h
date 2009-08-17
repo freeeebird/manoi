@@ -4,7 +4,7 @@
  *
  * This file is part of the Manoi Control Software
  *
- * Copyright (c) 2009,  Krystof Kin,    chris@cvl.iis.u-tokyo.ac.jp,  The University of Tokyo
+ * Copyright (c) 2009,  Krzysztof Kin,    chris@cvl.iis.u-tokyo.ac.jp,  The University of Tokyo
  *                      Bjoern Rennhak, bjoern@rennhak.de,            The University of Tokyo
  *
  *
@@ -28,7 +28,7 @@
 #ifndef _COPYRIGHT_H_
 #define _COPYRIGHT_H_
 
-static char *copyright = "Copyright (c) 2009, Krystof Kin and Bjoern Rennhak, Manoi Control Software,  All rights reserved, see copyright notice for more details.";
+static char *copyright = "Copyright (c) 2009, Krzysztof Kin and Bjoern Rennhak, Manoi Control Software,  All rights reserved, see copyright notice for more details.";
 
 #endif // _COPYRIGHT_H_
 

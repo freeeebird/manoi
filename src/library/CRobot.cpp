@@ -6,7 +6,7 @@
  * \version     $Id$
  * \brief       Implementation for the base functions library of the Manoi Control SW
  * \note        {
- *                Copyright (c) 2009, Krystof Kin, The University of Tokyo
+ *                Copyright (c) 2009, Krzysztof Kin, The University of Tokyo
  *                All rights reserved, see COPYRIGHT file for more details.
  *
  *                o Code style used here is a modified Allman version

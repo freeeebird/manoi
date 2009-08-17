@@ -1,12 +1,12 @@
 /*!
  *
  * \file        CRobot.h
- * \author      Krystof Kin <chris@cvl.iis.u-tokyo.ac.jp>
+ * \author      Krzysztof Kin <chris@cvl.iis.u-tokyo.ac.jp>
  * \author      Bjoern Rennhak <bjoern@rennhak.de>
  * \version     $Id$
  * \brief       Header file for the base functions library of the Manoi Control SW
  * \note        {
- *                Copyright (c) 2009, Krystof Kin, The University of Tokyo
+ *                Copyright (c) 2009, Krzysztof Kin, The University of Tokyo
  *                All rights reserved, see COPYRIGHT file for more details.
  *
  *                o Code style used here is a modified Allman version
@@ -65,22 +65,14 @@ class CRobot
 {
 
   private:
-    //int rcb;                  ///< FIXME - actually this makes sense - this is some 
+    int rcb;                          ///<
 
+    int crouch_positions[10][24];     ///<
+    int leftstep_position[10][24];    ///<
 
-    /// FIXME - This makes no sense. Platform specific code should be removed during preprocessing. 
-    // This is why we have "defines" etc. If we include all platform specific code it will enlarge our
-    // binary significantly. In any case, windows.h is not available under GNU/Linux and the WINAPI is
-    // neither.
-    //char OS; //variable with inforamtion about Operating System 0 - windows
-
-
-    int crouch_positions[10][24];
-    int leftstep_position[10][24];
-
-    HANDLE hCom;                  // FIXME: Hungarian Notation in MS style is evil. Don't use it. Even MS says now so.
-    DCB dcbCom;                   ///< communications device control structure
-    COMMTIMEOUTS cto;             ///< timeouts 
+    HANDLE hCom;                      ///< 
+    DCB dcbCom;                       ///< Communications device control structure
+    COMMTIMEOUTS cto;                 ///< Timeouts 
 
 
     /*!

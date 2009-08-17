@@ -4,7 +4,7 @@ Kyosho Manoi (AT-01) Control Software
 This software can be used to control the Kyosho Manoi Robot [1].
 Manoi known under the type AT-01 is originally based on the KHR-2HV kit from Kondo and contains
 two embedded controllers. The first one is the RCB which controls the Servo motors directly and the
-KCB which is an optional extension board. This control software, originally written by Krystof Kin,
+KCB which is an optional extension board. This control software, originally written by Krzysztof Kin,
 is used to control the RCB controller directly via Serial interface without the use of
 ``Heart2Heart'' the standard GUI software.
 
@@ -43,14 +43,14 @@ References
 ----------
 
 [1] Kyosho Manoi Homepage, http://www.kyosho.com/jpn/products/robot/gallery/gallery.html
-[2] Krystof Kin's Github repository, http://github.com/freeeebird
+[2] Krzysztof Kin's Github repository, http://github.com/freeeebird
 
 
 
 Author
 ------
 
-(c) 2009, Krystof Kin, The University of Tokyo, Computer Vision Laboratory
+(c) 2009, Krzysztof Kin, The University of Tokyo, Computer Vision Laboratory
 
 
 Contribution
