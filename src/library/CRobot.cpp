@@ -1,7 +1,7 @@
 /*!
  *
  * \file        CRobot.cpp
- * \author      Krystof Kin <chris@cvl.iis.u-tokyo.ac.jp>
+ * \author      Krzysztof Kin <chris@cvl.iis.u-tokyo.ac.jp>
  * \author      Bjoern Rennhak <bjoern@rennhak.de>
  * \version     $Id$
  * \brief       Implementation for the base functions library of the Manoi Control SW
@@ -28,15 +28,15 @@
 
 
 #ifdef _WINDOWS_
-  #include <windows.h>
-  #include "windows/stdafx.h"
+  #include "../windows/stdafx.h"  
+  #include <windows.h>  
 #endif // _WINDOWS_
 
 
 // Standard header includes {{{
 #include <stdlib.h>
-#include "libary/copyright.h"                                           ///< Include our Copyright notice in every binary
-#include "libary/CRobot.h"
+#include "../library/copyright.h"                                           ///< Include our Copyright notice in every binary
+#include "../library/CRobot.h"
 // }}}
 
 
@@ -49,9 +49,7 @@ int CRobot::OpenCom(int com_number,int baudrate,int parity,int databits,int stop
 {
 
     bool success;
-    switch(OS)                /// FIXME
-    {
-    case 0: 
+
       static char pComm[4];
       pComm[0]='C';
       pComm[1]='O';
@@ -124,10 +122,9 @@ int CRobot::OpenCom(int com_number,int baudrate,int parity,int databits,int stop
       //PurgeComm(hCom, PURGE_TXCLEAR|PURGE_RXCLEAR|PURGE_TXABORT|PURGE_RXABORT);
       //EscapeCommFunction(hCom, SETDTR);
       //EscapeCommFunction(hCom, CLRDTR);
-      break;
+
       
-      
-    }
+    
     return 1;
 
 
@@ -200,19 +197,19 @@ bool CRobot::RCBReadyCheck()
 
 CRobot::CRobot()
 {
-  OS=0;
+//  OS=0;
   OpenCom(6,115200,1,8,1);
 
   //setting up software switch
   
   unsigned int myswitch;
   myswitch &= ~(0x104);
-    myswitch |= 0x200;
+  myswitch |= 0x200;
 
   unsigned char in_option = 1; //force the ACK
 
     
-    unsigned char command[5];
+  unsigned char command[5];
   unsigned char rec[2];
 
     command[0] = 0xF2;

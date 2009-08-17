@@ -33,11 +33,11 @@
 
 
 // Standard header includes {{{
-#include "libary/copyright.h"                                           ///< Include our Copyright notice in every binary
+#include "../library/copyright.h"                                           ///< Include our Copyright notice in every binary
 
-#ifdef _WINDOWS_
+//#ifdef _WINDOWS_
   #include <windows.h>
-#endif // _WINDOWS_
+//#endif // _WINDOWS_
 
 
 // }}}
@@ -58,21 +58,21 @@
 
 /*!
  * \class CRobot
- * \author Krystof Kin <chris@cvl.iis.u-tokyo.ac.jp>
- * \brief This class does ... FIXME
+ * \author Krzysztof Kin <chris@cvl.iis.u-tokyo.ac.jp>
+ * \brief Comprehensive set of functions allowing user to control Manoi robot according to RCB-3 command reference
  */
 class CRobot
 {
 
   private:
-    int rcb;                  ///< FIXME
+    //int rcb;                  ///< FIXME - actually this makes sense - this is some 
 
 
     /// FIXME - This makes no sense. Platform specific code should be removed during preprocessing. 
     // This is why we have "defines" etc. If we include all platform specific code it will enlarge our
     // binary significantly. In any case, windows.h is not available under GNU/Linux and the WINAPI is
     // neither.
-    char OS; //variable with inforamtion about Operating System 0 - windows
+    //char OS; //variable with inforamtion about Operating System 0 - windows
 
 
     int crouch_positions[10][24];

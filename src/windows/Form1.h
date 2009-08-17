@@ -1,4 +1,4 @@
-#include "CRobot.h"
+#include "../library/CRobot.h"
 
 #pragma once
 
@@ -1108,7 +1108,7 @@ private: System::Void button6_Click(System::Object^  sender, System::EventArgs^ 
 		 }
 private: System::Void button7_Click(System::Object^  sender, System::EventArgs^  e) {
 			 
-			 Manoi->GetAllChannels(NULL,NULL,7,(int)numericUpDown19->Value,(int)numericUpDown20->Value);
+			 Manoi->GetAllChannels(0,0,7,(int)numericUpDown19->Value,(int)numericUpDown20->Value);
 		 }
 private: System::Void button8_Click(System::Object^  sender, System::EventArgs^  e) {
 
