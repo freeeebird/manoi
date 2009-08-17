@@ -241,257 +241,103 @@ CRobot::CRobot()
   ReadData(rec, 1);
 
   ///! Preinit array and reset values which are different
-  for( int i = 0; i <= 3; i++ )
+  for( int i = 0; i <= 5; i++ )
   {
     for( int j = 0; j <= 22; j++ )
     {
-      crouch_positions[i][j] = 16384;
+      if( i <= 3 ) { crouch_positions[i][j]  = 16384; }
+      leftstep_position[i][j] = 16384;
     }
   }
 
-  // crouch_positions[0][0] = 16384;
-  // crouch_positions[0][1] = 16384;
-  // crouch_positions[0][2] = 16384;
-  // crouch_positions[0][3] = 16384;
-  // crouch_positions[0][4] = 16384;
-  // crouch_positions[0][5] = 16384;
-  // crouch_positions[0][6] = 16384;
-  // crouch_positions[0][7] = 16384;
-  // crouch_positions[0][8] = 16384;
-  // crouch_positions[0][9] = 16384;
-  // crouch_positions[0][10] = 16384;
   crouch_positions[0][11] = 16384+25;
   crouch_positions[0][12] = 16384+60;
   crouch_positions[0][13] = 16384-40;
-  // crouch_positions[0][14] = 16384;
-  // crouch_positions[0][15] = 16384;
-  // crouch_positions[0][16] = 16384;
+
   crouch_positions[0][17] = 16384+25;
   crouch_positions[0][18] = 16384+60;
   crouch_positions[0][19] = 16384-40;
-  // crouch_positions[0][20] = 16384;
-  // crouch_positions[0][21] = 16384;
-  // crouch_positions[0][22] = 16384;
 
-  // crouch_positions[1][0] = 16384;
-  // crouch_positions[1][1] = 16384;
-  // crouch_positions[1][2] = 16384;
-  // crouch_positions[1][3] = 16384;
-  // crouch_positions[1][4] = 16384;
-  // crouch_positions[1][5] = 16384;
-  // crouch_positions[1][6] = 16384;
-  // crouch_positions[1][7] = 16384;
-  // crouch_positions[1][8] = 16384;
-  // crouch_positions[1][9] = 16384;
-  // crouch_positions[1][10]=16384;
-  crouch_positions[1][11]=16384+65;
-  crouch_positions[1][12]=16384+170;
-  crouch_positions[1][13]=16384-100;
-  // crouch_positions[1][14]=16384;
-  // crouch_positions[1][15]=16384;
-  // crouch_positions[1][16]=16384;
-  crouch_positions[1][17]=16384+65;
-  crouch_positions[1][18]=16384+170;
-  crouch_positions[1][19]=16384-100;
-  // crouch_positions[1][20]=16384;
-  // crouch_positions[1][21]=16384;
-  // crouch_positions[1][22]=16384;
-  //
-  // crouch_positions[2][0]=16384;
-  // crouch_positions[2][1]=16384;
-  // crouch_positions[2][2]=16384;
-  // crouch_positions[2][3]=16384;
-  // crouch_positions[2][4]=16384;
-  // crouch_positions[2][5]=16384;
-  // crouch_positions[2][6]=16384;
-  // crouch_positions[2][7]=16384;
-  // crouch_positions[2][8]=16384;
-  // crouch_positions[2][9]=16384;
-  // crouch_positions[2][10]=16384;
-  crouch_positions[2][11]=16384+85;
-  crouch_positions[2][12]=16384+200;
-  crouch_positions[2][13]=16384-120;
-  // crouch_positions[2][14]=16384;
-  // crouch_positions[2][15]=16384;
-  // crouch_positions[2][16]=16384;
-  crouch_positions[2][17]=16384+85;
-  crouch_positions[2][18]=16384+200;
-  crouch_positions[2][19]=16384-120;
-  // crouch_positions[2][20]=16384;
-  // crouch_positions[2][21]=16384;
-  // crouch_positions[2][22]=16384;
-  //
-  // crouch_positions[3][0]=16384;
-  // crouch_positions[3][1]=16384;
-  // crouch_positions[3][2]=16384;
-  // crouch_positions[3][3]=16384;
-  // crouch_positions[3][4]=16384;
-  // crouch_positions[3][5]=16384;
-  // crouch_positions[3][6]=16384;
-  // crouch_positions[3][7]=16384;
-  // crouch_positions[3][8]=16384;
-  // crouch_positions[3][9]=16384;
-  // crouch_positions[3][10]=16384;
-  crouch_positions[3][11]=16384+105;
-  crouch_positions[3][12]=16384+240;
-  crouch_positions[3][13]=16384-140;
-  // crouch_positions[3][14]=16384;
-  // crouch_positions[3][15]=16384;
-  // crouch_positions[3][16]=16384;
-  crouch_positions[3][17]=16384+104;
-  crouch_positions[3][18]=16384+240;
-  crouch_positions[3][19]=16384-140;
-  // crouch_positions[3][20]=16384;
-  // crouch_positions[3][21]=16384;
-  // crouch_positions[3][22]=16384;
+  crouch_positions[1][11] = 16384+65;
+  crouch_positions[1][12] = 16384+170;
+  crouch_positions[1][13] = 16384-100;
 
-  leftstep_position[0][0]=16384;
-  leftstep_position[0][1]=16384;
-  leftstep_position[0][2]=16384;
-  leftstep_position[0][3]=16384;
-  leftstep_position[0][4]=16384;
-  leftstep_position[0][5]=16384;
-  leftstep_position[0][6]=16384;
-  leftstep_position[0][7]=16384;
-  leftstep_position[0][8]=16384;
-  leftstep_position[0][9]=16384;
-  leftstep_position[0][10]=16384;
-  leftstep_position[0][11]=16384+25;
-  leftstep_position[0][12]=16384+60;
-  leftstep_position[0][13]=16384-40;
-  leftstep_position[0][14]=16384;
-  leftstep_position[0][15]=16384;
-  leftstep_position[0][16]=16384;
-  leftstep_position[0][17]=16384+25;
-  leftstep_position[0][18]=16384+60;
-  leftstep_position[0][19]=16384-40;
-  leftstep_position[0][20]=16384;
-  leftstep_position[0][21]=16384;
-  leftstep_position[0][22]=16384;
+  crouch_positions[1][17] = 16384+65;
+  crouch_positions[1][18] = 16384+170;
+  crouch_positions[1][19] = 16384-100;
 
-  leftstep_position[1][0]=16384;
-  leftstep_position[1][1]=16384;
-  leftstep_position[1][2]=16384;
-  leftstep_position[1][3]=16384;
-  leftstep_position[1][4]=16384;
-  leftstep_position[1][5]=16384;
-  leftstep_position[1][6]=16384;
-  leftstep_position[1][7]=16384;
-  leftstep_position[1][8]=16384;
-  leftstep_position[1][9]=16384;
-  leftstep_position[1][10]=16384;
-  leftstep_position[1][11]=16384;
-  leftstep_position[1][12]=16384+80;
-  leftstep_position[1][13]=16384+60;
-  leftstep_position[1][14]=16384+10;
-  leftstep_position[1][15]=16384;
-  leftstep_position[1][16]=16384;
-  leftstep_position[1][17]=16384+25;
-  leftstep_position[1][18]=16384+60;
-  leftstep_position[1][19]=16384-40;
-  leftstep_position[1][20]=16384-25;
-  leftstep_position[1][21]=16384;
-  leftstep_position[1][22]=16384;
+  crouch_positions[2][11] = 16384+85;
+  crouch_positions[2][12] = 16384+200;
+  crouch_positions[2][13] = 16384-120;
 
-  leftstep_position[2][0]=16384;
-  leftstep_position[2][1]=16384;
-  leftstep_position[2][2]=16384;
-  leftstep_position[2][3]=16384;
-  leftstep_position[2][4]=16384;
-  leftstep_position[2][5]=16384;
-  leftstep_position[2][6]=16384;
-  leftstep_position[2][7]=16384;
-  leftstep_position[2][8]=16384;
-  leftstep_position[2][9]=16384;
-  leftstep_position[2][10]=16384;
-  leftstep_position[2][11]=16384+90;
-  leftstep_position[2][12]=16384+60;
-  leftstep_position[2][13]=16384-0;
-  leftstep_position[2][14]=16384;
-  leftstep_position[2][15]=16384;
-  leftstep_position[2][16]=16384;
-  leftstep_position[2][17]=16384+25;
-  leftstep_position[2][18]=16384+80;
-  leftstep_position[2][19]=16384-80;
-  leftstep_position[2][20]=16384-10;
-  leftstep_position[2][21]=16384;
-  leftstep_position[2][22]=16384;
+  crouch_positions[2][17] = 16384+85;
+  crouch_positions[2][18] = 16384+200;
+  crouch_positions[2][19] = 16384-120;
 
-  leftstep_position[3][0]=16384;
-  leftstep_position[3][1]=16384;
-  leftstep_position[3][2]=16384;
-  leftstep_position[3][3]=16384;
-  leftstep_position[3][4]=16384;
-  leftstep_position[3][5]=16384;
-  leftstep_position[3][6]=16384;
-  leftstep_position[3][7]=16384;
-  leftstep_position[3][8]=16384;
-  leftstep_position[3][9]=16384;
-  leftstep_position[3][10]=16384;
-  leftstep_position[3][11]=16384+60;
-  leftstep_position[3][12]=16384+90;
-  leftstep_position[3][13]=16384-13;
-  leftstep_position[3][14]=16384-10;
-  leftstep_position[3][15]=16384;
-  leftstep_position[3][16]=16384;
-  leftstep_position[3][17]=16384+60;
-  leftstep_position[3][18]=16384+180;
-  leftstep_position[3][19]=16384-133;
-  leftstep_position[3][20]=16384-0;
-  leftstep_position[3][21]=16384;
-  leftstep_position[3][22]=16384;
+  crouch_positions[3][11] = 16384+105;
+  crouch_positions[3][12] = 16384+240;
+  crouch_positions[3][13] = 16384-140;
 
-  leftstep_position[4][0]=16384;
-  leftstep_position[4][1]=16384;
-  leftstep_position[4][2]=16384;
-  leftstep_position[4][3]=16384;
-  leftstep_position[4][4]=16384;
-  leftstep_position[4][5]=16384;
-  leftstep_position[4][6]=16384;
-  leftstep_position[4][7]=16384;
-  leftstep_position[4][8]=16384;
-  leftstep_position[4][9]=16384;
-  leftstep_position[4][10]=16384;
-  leftstep_position[4][11]=16384+60;
-  leftstep_position[4][12]=16384+60;
-  leftstep_position[4][13]=16384-13;
-  leftstep_position[4][14]=16384-10;
-  leftstep_position[4][15]=16384;
-  leftstep_position[4][16]=16384;
-  leftstep_position[4][17]=16384+120;
-  leftstep_position[4][18]=16384+139;
-  leftstep_position[4][19]=16384-42;
-  leftstep_position[4][20]=16384+0;
-  leftstep_position[4][21]=16384;
-  leftstep_position[4][22]=16384;
+  crouch_positions[3][17] = 16384+104;
+  crouch_positions[3][18] = 16384+240;
+  crouch_positions[3][19] = 16384-140;
 
-  leftstep_position[5][0]=16384;
-  leftstep_position[5][1]=16384;
-  leftstep_position[5][2]=16384;
-  leftstep_position[5][3]=16384;
-  leftstep_position[5][4]=16384;
-  leftstep_position[5][5]=16384;
-  leftstep_position[5][6]=16384;
-  leftstep_position[5][7]=16384;
-  leftstep_position[5][8]=16384;
-  leftstep_position[5][9]=16384;
-  leftstep_position[5][10]=16384;
-  leftstep_position[5][11]=16384+25;
-  leftstep_position[5][12]=16384+60;
-  leftstep_position[5][13]=16384-40;
-  leftstep_position[5][14]=16384;
-  leftstep_position[5][15]=16384;
-  leftstep_position[5][16]=16384;
-  leftstep_position[5][17]=16384+25;
-  leftstep_position[5][18]=16384+60;
-  leftstep_position[5][19]=16384-40;
-  leftstep_position[5][20]=16384;
-  leftstep_position[5][21]=16384;
-  leftstep_position[5][22]=16384;
+  leftstep_position[0][11] = 16384+25;
+  leftstep_position[0][12] = 16384+60;
+  leftstep_position[0][13] = 16384-40;
 
-    
-  
-}
+  leftstep_position[0][17] = 16384+25;
+  leftstep_position[0][18] = 16384+60;
+  leftstep_position[0][19] = 16384-40;
+
+  leftstep_position[1][12] = 16384+80;
+  leftstep_position[1][13] = 16384+60;
+  leftstep_position[1][14] = 16384+10;
+
+  leftstep_position[1][17] = 16384+25;
+  leftstep_position[1][18] = 16384+60;
+  leftstep_position[1][19] = 16384-40;
+  leftstep_position[1][20] = 16384-25;
+
+  leftstep_position[2][11] = 16384+90;
+  leftstep_position[2][12] = 16384+60;
+  leftstep_position[2][13] = 16384-0;
+
+  leftstep_position[2][17] = 16384+25;
+  leftstep_position[2][18] = 16384+80;
+  leftstep_position[2][19] = 16384-80;
+  leftstep_position[2][20] = 16384-10;
+
+  leftstep_position[3][11] = 16384+60;
+  leftstep_position[3][12] = 16384+90;
+  leftstep_position[3][13] = 16384-13;
+  leftstep_position[3][14] = 16384-10;
+
+  leftstep_position[3][17] = 16384+60;
+  leftstep_position[3][18] = 16384+180;
+  leftstep_position[3][19] = 16384-133;
+  leftstep_position[3][20] = 16384-0;
+
+  leftstep_position[4][11] = 16384+60;
+  leftstep_position[4][12] = 16384+60;
+  leftstep_position[4][13] = 16384-13;
+  leftstep_position[4][14] = 16384-10;
+
+  leftstep_position[4][17] = 16384+120;
+  leftstep_position[4][18] = 16384+139;
+  leftstep_position[4][19] = 16384-42;
+  leftstep_position[4][20] = 16384+0;
+
+  leftstep_position[5][11] = 16384+25;
+  leftstep_position[5][12] = 16384+60;
+  leftstep_position[5][13] = 16384-40;
+
+  leftstep_position[5][17] = 16384+25;
+  leftstep_position[5][18] = 16384+60;
+  leftstep_position[5][19] = 16384-40;
+
+} // end of Ctor
+
 
 CRobot::~CRobot()
 {
@@ -499,87 +345,72 @@ CRobot::~CRobot()
 }
 
 
+/*!
+ * \function GetRCBVersion
+ * \brief
+ * \param out_version
+ * \returns Integer, if successful returns true otherwise false
+ */
 int CRobot::GetRCBVersion(unsigned char *out_version)
 {
-  
   unsigned char command[2];
   unsigned char rec2[65];
   int written=-1;
-  
-  
 
-  command[0]=0xFF;
+  command[0] = 0xFF;
   command[1] = GenerateChecksum(command,2,false);
-  
-  
-  
-  
-  //OpenCom(6,115200,1,8,1);
-  while(!RCBReadyCheck())
-  {
-  }
-  
+
+  // OpenCom(6,115200,1,8,1);
+  while(!RCBReadyCheck()) { }
+
   SendData(&command[0],2);
   ReadData(rec2,65);
 
-  //CloseCom();
-  
-  //copying result information about RCB to destination
-  for(int i=0;i<65;i++)
-    {
-    *(out_version+i)=*(rec2+i);
-    }
-  
-  
+  // CloseCom();
+
+  ///! copying result information about RCB to destination
+  for(int i=0;i<65;i++) { *(out_version+i) =* (rec2+i); }
+
   return EXIT_SUCCESS;
-
-
 }
+
 
 int CRobot::SetSingleChannel(int channel, int position, unsigned int speed, int options)
 {
-    unsigned char command[7];
+  unsigned char command[7];
   unsigned char rec[65];
-  
-  options |= 1; //force ACK
 
-    if ( speed == 0 || speed > 255 )
-    {
-         return -1;
-    }
+  options |= 1;                                             ///< force ACK
+
+  if ( speed == 0 || speed > 255 ) { return -1; }
 
   command[0] = 0xFE;
-    command[1] = options;
-    command[2] = channel;
-    command[3] = 255;
-    command[4] = (32902>>8) & 0xFF;    
-    command[5] = 32902 & 0xFF;
-    command[6] = GenerateChecksum(command,7,false);
-  
+  command[1] = options;
+  command[2] = channel;
+  command[3] = 255;
+  command[4] = (32902>>8) & 0xFF;    
+  command[5] = 32902 & 0xFF;
+  command[6] = GenerateChecksum(command,7,false);
+
   //OpenCom(6,115200,1,8,1);
-  while(!RCBReadyCheck())
-  {
-  }
+  while(!RCBReadyCheck()) { }
 
   SendData(&command[0],7);
   ReadData(&rec[0],1);
 
+  // FIXME
   if(rec[0]==6)
   {}
   
   command[0] = 0xFE;
-    command[1] = options;
-    command[2] = channel;
-    command[3] = speed;
-    command[4] = (position>>8) & 0xFF;    
-    command[5] = position & 0xFF;
-    command[6] = GenerateChecksum(command,7,false);
-  
-  
+  command[1] = options;
+  command[2] = channel;
+  command[3] = speed;
+  command[4] = (position>>8) & 0xFF;    
+  command[5] = position & 0xFF;
+  command[6] = GenerateChecksum(command,7,false);
 
-  while(!RCBReadyCheck())
-  {
-  }
+  while(!RCBReadyCheck()) { }
 
   SendData(&command[0],7);
   ReadData(&rec[0],1);
