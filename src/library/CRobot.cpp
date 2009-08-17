@@ -27,14 +27,9 @@
  */
 
 
-#ifdef _WINDOWS_
-  #include "../windows/stdafx.h"  
-  #include <windows.h>  
-#endif // _WINDOWS_
-
-
 // Standard header includes {{{
 #include <stdlib.h>
+
 #include "../library/copyright.h"                                           ///< Include our Copyright notice in every binary
 #include "../library/CRobot.h"
 // }}}

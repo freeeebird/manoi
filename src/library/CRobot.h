@@ -86,8 +86,12 @@ class CRobot
     /*!
      * \function OpenCom
      * \brief Opens the serial port
-     * \param
-     * \returns
+     * \param com_number
+     * \param baudrate
+     * \param parity
+     * \param databits
+     * \param stopbits
+     * \returns Integer, if successful returns true otherwise false
      */
     int OpenCom(int com_number,int baudrate,int parity,int databits,int stopbits);
 
@@ -95,8 +99,7 @@ class CRobot
     /*!
      * \function CloseCom
      * \brief Closes the serial port
-     * \param
-     * \returns
+     * \returns Integer, if successful returns true otherwise false
      */
     int CloseCom();
 
@@ -104,8 +107,9 @@ class CRobot
     /*!
      * \function SendData
      * \brief Transmits (TX/RX) data over the Serial (RS-232) interface.
-     * \param
-     * \returns
+     * \param dataBuffer
+     * \param bytesToSend
+     * \returns Integer, if successful returns true otherwise false
      */
     int SendData(unsigned char* dataBuffer, int bytesToSend);
 
@@ -113,8 +117,9 @@ class CRobot
     /*!
      * \function SendData
      * \brief Transmits (TX/RX) data over the Serial (RS-232) interface.
-     * \param
-     * \returns
+     * \param dataBuffer
+     * \param bytesToRead
+     * \returns Integer, if successful returns true otherwise false
      */
     int ReadData(unsigned char* dataBuffer, int bytesToRead);
 
@@ -122,8 +127,10 @@ class CRobot
     /*!
      * \function GenerateChecksum
      * \brief Transmits (TX/RX) data over the RS-232 interface and checks if the Transfer was ok.
-     * \param
-     * \returns
+     * \param commands
+     * \param size
+     * \param sevenbitMask
+     * \returns Integer, if successful returns true otherwise false
      */
     int GenerateChecksum(unsigned char* commands,int size,bool sevenbitMask);
 
@@ -136,7 +143,12 @@ class CRobot
     bool RCBReadyCheck();
 
 
-    // FIXME: Stuff this into its own utility class
+    /*!
+     * \function Delay
+     * \brief Executes a simple delay
+     * \param ms
+     * \notes FIXME: Stuff this into its own utility class
+     */
     void Delay(int ms);
 
 
@@ -145,15 +157,85 @@ class CRobot
     CRobot();
     ~CRobot();
 
-    int GetRCBVersion(unsigned char *out_version /*65 characters*/);
 
+    /*!
+     * \function GetRCBVersion
+     * \brief
+     * \param out_version Pointer to a unsigned char array which needs to fit 65 chars.
+     * \returns Integer, if successful returns true otherwise false
+     */
+    int GetRCBVersion(unsigned char *out_version);
+
+
+    /*!
+     * \function Connect
+     * \brief
+     * \param com_number
+     * \param baudrate
+     * \param parity
+     * \param databits
+     * \parm stopbits
+     * \returns Integer, if successful returns true otherwise false
+     */
     int Connect(int com_number,int baudrate,int parity,int databits,int stopbits);
+
+
+    /*!
+     * \function Disconnect
+     * \brief
+     * \returns Integer, if successful returns true otherwise false
+     */
     int Disconnect();
 
 
+    /*!
+     * \function SetSingleChannel
+     * \brief
+     * \param channel
+     * \param position
+     * \param speed
+     * \param options
+     * \returns Integer, if successful returns true otherwise false
+     */
     int SetSingleChannel(int channel, int position, unsigned int speed, int options);
+
+
+    /*!
+     * \function SetAllChannels
+     * \brief
+     * \param position
+     * \param speed
+     * \param options
+     * \param motionIndex
+     * \param slotIndex
+     * \returns Integer, if successful returns true otherwise false
+     */
     int SetAllChannels( int* position, unsigned char speed, int options, int motionIndex,int slotIndex);
+
+
+    /*!
+     * \function GetAllChannels
+     * \brief
+     * \param position
+     * \param speed
+     * \param options
+     * \param motionIndex
+     * \param slotIndex
+     * \returns Integer, if successful returns true otherwise false
+     */
     int GetAllChannels( int* position, unsigned char *speed, int options, int motionIndex,int slotIndex);
+
+
+    /*!
+     * \function GetAllChannels
+     * \brief
+     * \param position
+     * \param speed
+     * \param options
+     * \param motionIndex
+     * \param slotIndex
+     * \returns Integer, if successful returns true otherwise false
+     */
 
     int SetMotionData(int* position, unsigned char speed, char motion, char posnumber);
     
