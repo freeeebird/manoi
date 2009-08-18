@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\..\bin\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -44,7 +44,7 @@
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -196,19 +196,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\AssemblyInfo.cpp"
+				RelativePath=".\windows\AssemblyInfo.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\CRobot.cpp"
+				RelativePath=".\library\CRobot.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ManoiControl.cpp"
+				RelativePath=".\windows\ManoiControl.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
+				RelativePath=".\windows\stdafx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -234,25 +234,25 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\CRobot.h"
+				RelativePath=".\library\CRobot.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Form1.h"
+				RelativePath=".\windows\Form1.h"
 				FileType="3"
 				>
 				<File
-					RelativePath=".\Form1.resX"
+					RelativePath=".\windows\Form1.resX"
 					SubType="Designer"
 					>
 				</File>
 			</File>
 			<File
-				RelativePath=".\resource.h"
+				RelativePath=".\windows\resource.h"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.h"
+				RelativePath=".\windows\stdafx.h"
 				>
 			</File>
 		</Filter>
@@ -262,11 +262,11 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\app.ico"
+				RelativePath=".\windows\app.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\app.rc"
+				RelativePath=".\windows\app.rc"
 				>
 			</File>
 		</Filter>
