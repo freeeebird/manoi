@@ -30,6 +30,10 @@
 // Standard header includes {{{
 #include <stdlib.h>
 
+//#ifdef _WINDOWS_
+  #include <windows.h>
+//#endif // _WINDOWS_
+
 #include "../library/copyright.h"                                           ///< Include our Copyright notice in every binary
 #include "../library/CRobot.h"
 // }}}
@@ -53,22 +57,14 @@ int CRobot::OpenCom(int com_number, int baudrate, int parity, int databits, int 
   pComm[1] = 'O';
   pComm[2] = 'M';
   pComm[3] = com_number + 48;                     ///< 
-
-  TCHAR *pcCommPort = TEXT("COM6");               ///< FIXME: Hardcoding is not good
-
-  // FIXME: Can we delete this?
-  // wchar_t *pcCommPort = TEXT("COM6");
-  // wchar_t *pcCommPort = new wchar_t[4];
-  // pcCommPort[0]='C';
-  // pcCommPort[1]='O';
-  // pcCommPort[2]='M';
-  // pcCommPort[3]=com_number+48;
-  // mbstowcs(pcCommPort,pComm,4);
-
-  hCom = CreateFile(pcCommPort, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM, NULL);
+  
+  wchar_t pcCommPort[5];
+  size_t convertedChars = 0;
+  mbstowcs_s(&convertedChars,pcCommPort,5,pComm,_TRUNCATE);
+  hCom = CreateFile(&pcCommPort[0], GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM, NULL);
 
   // FIXME: Let's use exceptions ! Or we omit them alltogether and use goto's.and handle errors at the end of each function
-  if( hCom == INVALID_HANDLE_VALUE ) { Utilities::PrintError(); }
+  //if( hCom == INVALID_HANDLE_VALUE ) { Utilities::PrintError(); }
 
   ///! Setting some values necessary for serial communication
   cto.ReadIntervalTimeout         = 100;                          ///<
@@ -110,7 +106,7 @@ int CRobot::OpenCom(int com_number, int baudrate, int parity, int databits, int 
   SetupComm(hCom, 4096, 4096);                                    ///<
   SetCommTimeouts(hCom,&cto);                                     ///<
 
-  success = SetCommState(hCom, &dcbCom);
+  int success = SetCommState(hCom, &dcbCom);
 
   // FIXME: Can we delete this?
   // success=GetCommState(hCom,&dcbCom);
@@ -146,9 +142,9 @@ int CRobot::CloseCom()
 int CRobot::SendData(unsigned char *dataBuffer, int bytesToSend)
 {
   // int written = -1;    // DELETEME if compile works
-  DWORD written = -1;                                                                     ///<
-  //bool ok = WriteFile(hCom, dataBuffer, bytesToSend, (LPDWORD)&written, NULL);          // FIXME: The cast seems uncessary can we not just create the var with the necessary type? DELETEME
-  if( WriteFile(hCom, dataBuffer, bytesToSend, &written, NULL) == false ) { Utilities::PrintError(); } 
+  DWORD written;                                                                     ///<
+  bool ok = WriteFile(hCom, dataBuffer, bytesToSend, &written, NULL);          // FIXME: The cast seems uncessary can we not just create the var with the necessary type? DELETEME
+  //if( WriteFile(hCom, dataBuffer, bytesToSend, &written, NULL) == false ) { Utilities::PrintError(); } 
   FlushFileBuffers(hCom);
 
   return EXIT_SUCCESS;
@@ -165,7 +161,8 @@ int CRobot::SendData(unsigned char *dataBuffer, int bytesToSend)
 int CRobot::ReadData(unsigned char *dataBuffer, int bytesToRead)
 {
   DWORD read  = -1;
-  if( ReadFile(hCom, dataBuffer, bytesToRead, &read, NULL) == false ) { Utilities::PrintError(); }
+  ReadFile(hCom, dataBuffer, bytesToRead, &read, NULL);
+//  if( ReadFile(hCom, dataBuffer, bytesToRead, &read, NULL) == false ) { Utilities::PrintError(); }
 
   return (int)read;
 }
@@ -186,9 +183,9 @@ int CRobot::GenerateChecksum(unsigned char* command, int size, bool sevenbitMask
 
   for( int i = 0; i < size - 1; i++ ) { checksum += *(temp+i); }              ///<
 
-  ( sevenbitMask ) ? ( checksum &= 0x7F; ) : ( checksum &= 0xFF; )            ///<
+  //( sevenbitMask ) ? ( checksum &= 0x7F; ) : ( checksum &= 0xFF; )            ///<
 
-  return checksum;
+  return checksum&0xFF;
 }
 
 
@@ -214,9 +211,9 @@ bool CRobot::RCBReadyCheck()
  * \function CRobot
  * \brief
  */
-CRobot::CRobot()
+CRobot::CRobot(int com_number)
 {
-  OpenCom(6, 115200, 1, 8, 1);                                                // FIXME: hardcoding
+  OpenCom(com_number, 115200, 1, 8, 1);                                                
 
   ///! Setting up software switch
   unsigned int myswitch;

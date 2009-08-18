@@ -890,7 +890,7 @@ private: System::Void numericUpDown10_ValueChanged(System::Object^  sender, Syst
 
 		 }
 private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-			 Manoi = new CRobot;
+			 Manoi = new CRobot(8);
 			 button4->Enabled=false;
 			 button5->Enabled=true;
 		 }

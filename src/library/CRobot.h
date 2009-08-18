@@ -146,7 +146,7 @@ class CRobot
 
   public:
 
-    CRobot();
+    CRobot(int com_number);
     ~CRobot();
 
 
