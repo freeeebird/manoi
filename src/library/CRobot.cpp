@@ -211,7 +211,7 @@ CRobot::CRobot(int com_number)
 {
   OpenCom(com_number, 115200, 1, 8, 1);                                                
 
-  ///! Setting up software switch
+  ///! Setting up software switch for details see RCB-3 command ref
   unsigned int myswitch;
   myswitch &= ~(0x104);
   myswitch |= 0x200;
@@ -353,13 +353,10 @@ int CRobot::GetRCBVersion(unsigned char *out_version)
   command[0] = 0xFF;
   command[1] = GenerateChecksum(command,2,false);
 
-  // OpenCom(6,115200,1,8,1);
   while(!RCBReadyCheck()) { }
 
   SendData(&command[0],2);
   ReadData(rec2,65);
-
-  // CloseCom();
 
   ///! copying result information about RCB to destination
   for(int i=0;i<65;i++) { *(out_version+i) =* (rec2+i); }
@@ -376,24 +373,6 @@ int CRobot::SetSingleChannel(int channel, int position, unsigned int speed, int 
   options |= 1;                                             ///< force ACK
 
   if ( speed == 0 || speed > 255 ) { return -1; }
-
-  command[0] = 0xFE;
-  command[1] = options;
-  command[2] = channel;
-  command[3] = 255;
-  command[4] = (32902>>8) & 0xFF;    
-  command[5] = 32902 & 0xFF;
-  command[6] = GenerateChecksum(command,7,false);
-
-  //OpenCom(6,115200,1,8,1);
-  while(!RCBReadyCheck()) { }
-
-  SendData(&command[0],7);
-  ReadData(&rec[0],1);
-
-  // FIXME
-  if(rec[0]==6) //rec[0]==6 means acknowledge from RCB
-  {}
   
   command[0] = 0xFE;
   command[1] = options;
@@ -408,8 +387,7 @@ int CRobot::SetSingleChannel(int channel, int position, unsigned int speed, int 
   SendData(&command[0],7);
   ReadData(&rec[0],1);
   
-  //CloseCom();
-  
+
   if(rec[0]==6)
     {
     return EXIT_SUCCESS;
@@ -434,10 +412,10 @@ int CRobot::SetAllChannels(int* position, unsigned char speed, int options, int 
     }
 
   command[0] = 0xFD;
-    command[1] = options;
-    command[2] = motionIndex-1;//motion
-    command[3] = slotIndex-1;//position
-    command[4] = speed;   //speed 
+  command[1] = options;
+  command[2] = motionIndex-1;//motion
+  command[3] = slotIndex-1;//position
+  command[4] = speed;   //speed 
   
   for(int i=0;i<24;i++)
     {
@@ -446,37 +424,13 @@ int CRobot::SetAllChannels(int* position, unsigned char speed, int options, int 
     
     }
 
-    command[53] = GenerateChecksum(command,54,false);
+  command[53] = GenerateChecksum(command,54,false);
 
-
-  
-  //OpenCom(6,115200,1,8,1);
   while(!RCBReadyCheck())
-    {
-    }
+    { }
 
   SendData(&command[0],54);
   ReadData(&rec[0],1);
-  /*
-  command[0] = 0xFE;
-    command[1] = options;
-    command[2] = channel;
-    command[3] = 100;
-    command[4] = (position>>8) & 0xFF;    
-    command[5] = position & 0xFF;
-    command[6] = GenerateChecksum(command,7,false);
-  
-  
-  
-
-  while(!RCBReadyCheck())
-    {
-    }
-
-  SendData(&command[0],7);
-  ReadData(&rec[0],1);
-  */
-  //CloseCom();
   
   if(rec[0]==6)
     {
@@ -512,8 +466,7 @@ int CRobot::GetAllChannels(int *position, unsigned char *speed, int options, int
     command[4] = GenerateChecksum(command,5,false);
 
   while(!RCBReadyCheck())
-    {
-    }
+    {}
 
   SendData(&command[0],5);
   ReadData(&rec[0],50);
@@ -528,10 +481,6 @@ int CRobot::GetAllChannels(int *position, unsigned char *speed, int options, int
     {
     return -1;
     }
-
-  
-
-
 
 }
 
@@ -642,12 +591,11 @@ int CRobot::GetAnalogInputs(float* out_power,float* out_ad1,float* out_ad2,float
 
   unsigned int power,ad1,ad2,ad3;
 
-    command[0] = 0xE8;
+  command[0] = 0xE8;
   command[1] = GenerateChecksum(command,2,false);
   
   while(!RCBReadyCheck())
-    {
-    }
+    {   }
 
   SendData(&command[0],2);
   ReadData(&rec[0],9);
@@ -686,15 +634,10 @@ int CRobot::PlayMotion(char motionIndex)
 
   unsigned char options = 7; //force ACK and eeprom write
 
-    
-
   command[0] = 244;
-    command[1] = options;
-    command[2] = motionIndex-1;//motion
-    command[3] = GenerateChecksum(command,4,false);
-
-
-  
+  command[1] = options;
+  command[2] = motionIndex-1;//motion
+  command[3] = GenerateChecksum(command,4,false);
   
   while(!RCBReadyCheck())
     {
@@ -703,8 +646,6 @@ int CRobot::PlayMotion(char motionIndex)
   SendData(&command[0],4);
   ReadData(&rec[0],1);
 
-  
-  
   if(rec[0]==6)
     {
     return EXIT_SUCCESS;
@@ -717,13 +658,12 @@ int CRobot::PlayMotion(char motionIndex)
 }
 void CRobot::Delay(int ms)
 {
-Sleep(ms);
+Sleep(ms);//FIXME: Windows.h specific
 }
 int CRobot::Crouch()
 {
   MotionFromArray(&crouch_positions[1][0],500,3,0);
 
-  
   return EXIT_SUCCESS;
 }
 int CRobot::LeftStep()
@@ -744,11 +684,6 @@ for(int i=0;i<framecount;i++)
 return EXIT_SUCCESS;
 
 }
-int CRobot::GoToNaturalHumanPosture()
-{
-  SetAllChannels(&crouch_positions[0][0],150,0,0,0);
-  return EXIT_SUCCESS;
-}
 
 int CRobot::LearningModeInit()
 {
@@ -757,7 +692,6 @@ int CRobot::LearningModeInit()
   {
     pos[i]=32770;
   }
-
   return SetAllChannels(pos,100,0,0,0);
 
 }
@@ -813,19 +747,3 @@ int CRobot::GetCurrentServosState(int* positions)
   return EXIT_SUCCESS;
 }
 
-int CRobot::CommSpeedTest()
-{
-  DWORD result;
-  DWORD temp;
-  for(int i=0;i<100;i++)
-   {
-	   temp = GetTickCount();
-	   SetAllChannels(&crouch_positions[0][0],1,1,1,1);
-	   SetAllChannels(&crouch_positions[1][0],1,1,1,1);
-	   SetAllChannels(&crouch_positions[2][0],1,1,1,1);
-	   SetAllChannels(&crouch_positions[3][0],1,1,1,1);
-	   result=result + (GetTickCount()-temp);
-   }
-  result=result/400;
-  return (int)result;
-}

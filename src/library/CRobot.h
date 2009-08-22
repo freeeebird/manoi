@@ -319,16 +319,7 @@ class CRobot
     int MotionFromArray(int* position, int framedelay, int framecount, int option);
 
 
-    /*!
-     * \function GoToNaturalHumanPosture
-     * \brief
-     * \returns Integer, if successful returns true otherwise false
-     * \note FIXME: The naming of this function is not good. Sth like "upright" or "halfSitting" would be better i think.
-     */
-    int GoToNaturalHumanPosture();
-
-
-    /*!
+     /*!
      * \function LearningModeInit
      * \brief
      * \returns Integer, if successful returns true otherwise false
