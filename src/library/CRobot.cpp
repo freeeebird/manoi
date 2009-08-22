@@ -108,11 +108,8 @@ int CRobot::OpenCom(int com_number, int baudrate, int parity, int databits, int 
 
   int success = SetCommState(hCom, &dcbCom);
 
-  // FIXME: Can we delete this?
-  // success=GetCommState(hCom,&dcbCom);
-  // PurgeComm(hCom, PURGE_TXCLEAR|PURGE_RXCLEAR|PURGE_TXABORT|PURGE_RXABORT);
-  // EscapeCommFunction(hCom, SETDTR);
-  // EscapeCommFunction(hCom, CLRDTR);
+  PurgeComm(hCom, PURGE_TXCLEAR|PURGE_RXCLEAR|PURGE_TXABORT|PURGE_RXABORT);
+
 
   return EXIT_SUCCESS;
 
@@ -820,7 +817,7 @@ int CRobot::CommSpeedTest()
 {
   DWORD result;
   DWORD temp;
-  for(int i=0;i<20;i++)
+  for(int i=0;i<100;i++)
    {
 	   temp = GetTickCount();
 	   SetAllChannels(&crouch_positions[0][0],1,1,1,1);
@@ -829,6 +826,6 @@ int CRobot::CommSpeedTest()
 	   SetAllChannels(&crouch_positions[3][0],1,1,1,1);
 	   result=result + (GetTickCount()-temp);
    }
-  result=result/80;
+  result=result/400;
   return (int)result;
 }
