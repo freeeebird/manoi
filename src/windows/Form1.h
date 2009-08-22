@@ -109,6 +109,8 @@ namespace ManoiControl {
 	private: System::Windows::Forms::Button^  button14;
 	private: System::Windows::Forms::Button^  button15;
 	private: System::Windows::Forms::Button^  button16;
+	private: System::Windows::Forms::Button^  button17;
+	private: System::Windows::Forms::Label^  label24;
 			 /// Required designer variable.
 		/// </summary>
 		System::ComponentModel::Container ^components;
@@ -180,6 +182,8 @@ namespace ManoiControl {
 			this->button14 = (gcnew System::Windows::Forms::Button());
 			this->button15 = (gcnew System::Windows::Forms::Button());
 			this->button16 = (gcnew System::Windows::Forms::Button());
+			this->button17 = (gcnew System::Windows::Forms::Button());
+			this->label24 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown3))->BeginInit();
@@ -782,11 +786,32 @@ namespace ManoiControl {
 			this->button16->UseVisualStyleBackColor = true;
 			this->button16->Click += gcnew System::EventHandler(this, &Form1::button16_Click);
 			// 
+			// button17
+			// 
+			this->button17->Location = System::Drawing::Point(245, 445);
+			this->button17->Name = L"button17";
+			this->button17->Size = System::Drawing::Size(145, 23);
+			this->button17->TabIndex = 60;
+			this->button17->Text = L"button17";
+			this->button17->UseVisualStyleBackColor = true;
+			this->button17->Click += gcnew System::EventHandler(this, &Form1::button17_Click);
+			// 
+			// label24
+			// 
+			this->label24->AutoSize = true;
+			this->label24->Location = System::Drawing::Point(12, 554);
+			this->label24->Name = L"label24";
+			this->label24->Size = System::Drawing::Size(41, 13);
+			this->label24->TabIndex = 61;
+			this->label24->Text = L"label24";
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(654, 576);
+			this->Controls->Add(this->label24);
+			this->Controls->Add(this->button17);
 			this->Controls->Add(this->button16);
 			this->Controls->Add(this->button15);
 			this->Controls->Add(this->button14);
@@ -1207,6 +1232,13 @@ private: System::Void button15_Click(System::Object^  sender, System::EventArgs^
 		 }
 private: System::Void button16_Click(System::Object^  sender, System::EventArgs^  e) {
 			 Manoi->LearningModeEnd();
+		 }
+private: System::Void button17_Click(System::Object^  sender, System::EventArgs^  e) {
+			int time;
+			 time = Manoi->CommSpeedTest();
+			String^ labeltext = gcnew String("");
+			labeltext=labeltext->Format("AVG time {0} ms ",time);
+			label24->Text=labeltext;
 		 }
 };
 }

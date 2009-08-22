@@ -360,6 +360,7 @@ class CRobot
      * \returns Integer, if successful returns true otherwise false
      */
     int GetCurrentServosState(int* positions);
+	int CommSpeedTest();
 
 };
 

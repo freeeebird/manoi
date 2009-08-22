@@ -141,10 +141,9 @@ int CRobot::CloseCom()
  */
 int CRobot::SendData(unsigned char *dataBuffer, int bytesToSend)
 {
-  // int written = -1;    // DELETEME if compile works
   DWORD written;                                                                     ///<
-  bool ok = WriteFile(hCom, dataBuffer, bytesToSend, &written, NULL);          // FIXME: The cast seems uncessary can we not just create the var with the necessary type? DELETEME
-  //if( WriteFile(hCom, dataBuffer, bytesToSend, &written, NULL) == false ) { Utilities::PrintError(); } 
+  bool ok = WriteFile(hCom, dataBuffer, bytesToSend, &written, NULL);          
+  //if( WriteFile(hCom, dataBuffer, bytesToSend, &written, NULL) == false ) { Utilities::PrintError(); } //Utilities::PrintError(); seem to not compile
   FlushFileBuffers(hCom);
 
   return EXIT_SUCCESS;
@@ -162,7 +161,7 @@ int CRobot::ReadData(unsigned char *dataBuffer, int bytesToRead)
 {
   DWORD read  = -1;
   ReadFile(hCom, dataBuffer, bytesToRead, &read, NULL);
-//  if( ReadFile(hCom, dataBuffer, bytesToRead, &read, NULL) == false ) { Utilities::PrintError(); }
+//  if( ReadFile(hCom, dataBuffer, bytesToRead, &read, NULL) == false ) { Utilities::PrintError(); } //Utilities::PrintError(); seem to not compile
 
   return (int)read;
 }
@@ -183,7 +182,7 @@ int CRobot::GenerateChecksum(unsigned char* command, int size, bool sevenbitMask
 
   for( int i = 0; i < size - 1; i++ ) { checksum += *(temp+i); }              ///<
 
-  //( sevenbitMask ) ? ( checksum &= 0x7F; ) : ( checksum &= 0xFF; )            ///<
+  //( sevenbitMask ) ? ( checksum &= 0x7F; ) : ( checksum &= 0xFF; )            ///< //doesn't compile...
 
   return checksum&0xFF;
 }
@@ -396,7 +395,7 @@ int CRobot::SetSingleChannel(int channel, int position, unsigned int speed, int 
   ReadData(&rec[0],1);
 
   // FIXME
-  if(rec[0]==6)
+  if(rec[0]==6) //rec[0]==6 means acknowledge from RCB
   {}
   
   command[0] = 0xFE;
@@ -426,8 +425,6 @@ int CRobot::SetSingleChannel(int channel, int position, unsigned int speed, int 
 
 int CRobot::SetAllChannels(int* position, unsigned char speed, int options, int motionIndex,int slotIndex)
 {
-    DWORD time1,time2;
-  time1=GetTickCount();
   unsigned char command[54];
   unsigned char rec[2];
   char* position_c=(char*)position;
@@ -483,7 +480,7 @@ int CRobot::SetAllChannels(int* position, unsigned char speed, int options, int 
   ReadData(&rec[0],1);
   */
   //CloseCom();
-  time2=GetTickCount()-time1;
+  
   if(rec[0]==6)
     {
     return EXIT_SUCCESS;
@@ -819,3 +816,19 @@ int CRobot::GetCurrentServosState(int* positions)
   return EXIT_SUCCESS;
 }
 
+int CRobot::CommSpeedTest()
+{
+  DWORD result;
+  DWORD temp;
+  for(int i=0;i<20;i++)
+   {
+	   temp = GetTickCount();
+	   SetAllChannels(&crouch_positions[0][0],1,1,1,1);
+	   SetAllChannels(&crouch_positions[1][0],1,1,1,1);
+	   SetAllChannels(&crouch_positions[2][0],1,1,1,1);
+	   SetAllChannels(&crouch_positions[3][0],1,1,1,1);
+	   result=result + (GetTickCount()-temp);
+   }
+  result=result/80;
+  return (int)result;
+}
