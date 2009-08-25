@@ -316,7 +316,7 @@ class CRobot
      * \param option
      * \returns Integer, if successful returns true otherwise false
      */
-    int MotionFromArray(int* position, int framedelay, int framecount, int option);
+    int MotionFromArray(int* position, int framedelay, int framespeed,int framecount, int option);
 
 
      /*!

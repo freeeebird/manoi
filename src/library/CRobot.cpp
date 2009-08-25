@@ -662,23 +662,23 @@ Sleep(ms);//FIXME: Windows.h specific
 }
 int CRobot::Crouch()
 {
-  MotionFromArray(&crouch_positions[1][0],500,3,0);
+  MotionFromArray(&crouch_positions[1][0],100,20,3,0);
 
   return EXIT_SUCCESS;
 }
 int CRobot::LeftStep()
 {
-  MotionFromArray(&leftstep_position[0][0],1000,6,0);
+  MotionFromArray(&leftstep_position[0][0],100,20,6,0);
   
   return EXIT_SUCCESS;
 }
 
-int CRobot::MotionFromArray(int* position, int framedelay, int framecount, int option)
+int CRobot::MotionFromArray(int* position, int framedelay,int framespeed, int framecount, int option)
 {
 int* temp=position+24;
 for(int i=0;i<framecount;i++)
   {
-    SetAllChannels(position+i*24,150,option,0,0);
+    SetAllChannels(position+i*24,1,option,0,0);
     Delay(framedelay);
   }
 return EXIT_SUCCESS;
