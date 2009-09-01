@@ -103,6 +103,12 @@ namespace ManoiControl {
 	private: System::Windows::Forms::Button^  button9;
 	private: System::Windows::Forms::Label^  label23;
 	private: System::Windows::Forms::Button^  button10;
+	private: System::Windows::Forms::Button^  button11;
+	private: System::Windows::Forms::Button^  button12;
+	private: System::Windows::Forms::Button^  button13;
+	private: System::Windows::Forms::Button^  button14;
+	private: System::Windows::Forms::Button^  button15;
+	private: System::Windows::Forms::Button^  button16;
 			 /// Required designer variable.
 		/// </summary>
 		System::ComponentModel::Container ^components;
@@ -168,6 +174,12 @@ namespace ManoiControl {
 			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->label23 = (gcnew System::Windows::Forms::Label());
 			this->button10 = (gcnew System::Windows::Forms::Button());
+			this->button11 = (gcnew System::Windows::Forms::Button());
+			this->button12 = (gcnew System::Windows::Forms::Button());
+			this->button13 = (gcnew System::Windows::Forms::Button());
+			this->button14 = (gcnew System::Windows::Forms::Button());
+			this->button15 = (gcnew System::Windows::Forms::Button());
+			this->button16 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown3))->BeginInit();
@@ -262,7 +274,7 @@ namespace ManoiControl {
 			// 
 			// numericUpDown8
 			// 
-			this->numericUpDown8->Location = System::Drawing::Point(40, 151);
+			this->numericUpDown8->Location = System::Drawing::Point(295, 133);
 			this->numericUpDown8->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, 0});
 			this->numericUpDown8->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, System::Int32::MinValue});
 			this->numericUpDown8->Name = L"numericUpDown8";
@@ -272,7 +284,7 @@ namespace ManoiControl {
 			// 
 			// numericUpDown9
 			// 
-			this->numericUpDown9->Location = System::Drawing::Point(40, 175);
+			this->numericUpDown9->Location = System::Drawing::Point(295, 157);
 			this->numericUpDown9->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, 0});
 			this->numericUpDown9->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, System::Int32::MinValue});
 			this->numericUpDown9->Name = L"numericUpDown9";
@@ -282,7 +294,7 @@ namespace ManoiControl {
 			// 
 			// numericUpDown10
 			// 
-			this->numericUpDown10->Location = System::Drawing::Point(40, 199);
+			this->numericUpDown10->Location = System::Drawing::Point(295, 181);
 			this->numericUpDown10->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, 0});
 			this->numericUpDown10->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, System::Int32::MinValue});
 			this->numericUpDown10->Name = L"numericUpDown10";
@@ -292,7 +304,7 @@ namespace ManoiControl {
 			// 
 			// numericUpDown11
 			// 
-			this->numericUpDown11->Location = System::Drawing::Point(40, 225);
+			this->numericUpDown11->Location = System::Drawing::Point(295, 207);
 			this->numericUpDown11->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, 0});
 			this->numericUpDown11->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, System::Int32::MinValue});
 			this->numericUpDown11->Name = L"numericUpDown11";
@@ -302,7 +314,7 @@ namespace ManoiControl {
 			// 
 			// numericUpDown12
 			// 
-			this->numericUpDown12->Location = System::Drawing::Point(40, 251);
+			this->numericUpDown12->Location = System::Drawing::Point(295, 233);
 			this->numericUpDown12->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, 0});
 			this->numericUpDown12->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, System::Int32::MinValue});
 			this->numericUpDown12->Name = L"numericUpDown12";
@@ -312,7 +324,7 @@ namespace ManoiControl {
 			// 
 			// numericUpDown13
 			// 
-			this->numericUpDown13->Location = System::Drawing::Point(295, 151);
+			this->numericUpDown13->Location = System::Drawing::Point(39, 133);
 			this->numericUpDown13->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, 0});
 			this->numericUpDown13->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, System::Int32::MinValue});
 			this->numericUpDown13->Name = L"numericUpDown13";
@@ -322,7 +334,7 @@ namespace ManoiControl {
 			// 
 			// numericUpDown14
 			// 
-			this->numericUpDown14->Location = System::Drawing::Point(295, 175);
+			this->numericUpDown14->Location = System::Drawing::Point(39, 157);
 			this->numericUpDown14->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, 0});
 			this->numericUpDown14->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, System::Int32::MinValue});
 			this->numericUpDown14->Name = L"numericUpDown14";
@@ -332,7 +344,7 @@ namespace ManoiControl {
 			// 
 			// numericUpDown15
 			// 
-			this->numericUpDown15->Location = System::Drawing::Point(294, 199);
+			this->numericUpDown15->Location = System::Drawing::Point(38, 181);
 			this->numericUpDown15->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, 0});
 			this->numericUpDown15->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, System::Int32::MinValue});
 			this->numericUpDown15->Name = L"numericUpDown15";
@@ -342,7 +354,7 @@ namespace ManoiControl {
 			// 
 			// numericUpDown16
 			// 
-			this->numericUpDown16->Location = System::Drawing::Point(294, 225);
+			this->numericUpDown16->Location = System::Drawing::Point(38, 207);
 			this->numericUpDown16->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, 0});
 			this->numericUpDown16->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, System::Int32::MinValue});
 			this->numericUpDown16->Name = L"numericUpDown16";
@@ -352,7 +364,7 @@ namespace ManoiControl {
 			// 
 			// numericUpDown17
 			// 
-			this->numericUpDown17->Location = System::Drawing::Point(294, 251);
+			this->numericUpDown17->Location = System::Drawing::Point(38, 233);
 			this->numericUpDown17->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, 0});
 			this->numericUpDown17->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {16383, 0, 0, System::Int32::MinValue});
 			this->numericUpDown17->Name = L"numericUpDown17";
@@ -506,7 +518,7 @@ namespace ManoiControl {
 			// label9
 			// 
 			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(251, 175);
+			this->label9->Location = System::Drawing::Point(255, 159);
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(34, 13);
 			this->label9->TabIndex = 32;
@@ -515,11 +527,12 @@ namespace ManoiControl {
 			// label10
 			// 
 			this->label10->AutoSize = true;
-			this->label10->Location = System::Drawing::Point(251, 151);
+			this->label10->Location = System::Drawing::Point(255, 135);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(34, 13);
 			this->label10->TabIndex = 33;
 			this->label10->Text = L"CH11";
+			this->label10->Click += gcnew System::EventHandler(this, &Form1::label10_Click);
 			// 
 			// label11
 			// 
@@ -534,7 +547,7 @@ namespace ManoiControl {
 			// label12
 			// 
 			this->label12->AutoSize = true;
-			this->label12->Location = System::Drawing::Point(251, 199);
+			this->label12->Location = System::Drawing::Point(255, 181);
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(34, 13);
 			this->label12->TabIndex = 35;
@@ -543,7 +556,7 @@ namespace ManoiControl {
 			// label13
 			// 
 			this->label13->AutoSize = true;
-			this->label13->Location = System::Drawing::Point(251, 225);
+			this->label13->Location = System::Drawing::Point(255, 209);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(34, 13);
 			this->label13->TabIndex = 36;
@@ -552,7 +565,7 @@ namespace ManoiControl {
 			// label14
 			// 
 			this->label14->AutoSize = true;
-			this->label14->Location = System::Drawing::Point(251, 253);
+			this->label14->Location = System::Drawing::Point(255, 235);
 			this->label14->Name = L"label14";
 			this->label14->Size = System::Drawing::Size(34, 13);
 			this->label14->TabIndex = 37;
@@ -561,7 +574,7 @@ namespace ManoiControl {
 			// label15
 			// 
 			this->label15->AutoSize = true;
-			this->label15->Location = System::Drawing::Point(0, 154);
+			this->label15->Location = System::Drawing::Point(0, 135);
 			this->label15->Name = L"label15";
 			this->label15->Size = System::Drawing::Size(34, 13);
 			this->label15->TabIndex = 38;
@@ -570,7 +583,7 @@ namespace ManoiControl {
 			// label16
 			// 
 			this->label16->AutoSize = true;
-			this->label16->Location = System::Drawing::Point(0, 177);
+			this->label16->Location = System::Drawing::Point(0, 158);
 			this->label16->Name = L"label16";
 			this->label16->Size = System::Drawing::Size(34, 13);
 			this->label16->TabIndex = 39;
@@ -579,7 +592,7 @@ namespace ManoiControl {
 			// label17
 			// 
 			this->label17->AutoSize = true;
-			this->label17->Location = System::Drawing::Point(0, 199);
+			this->label17->Location = System::Drawing::Point(0, 180);
 			this->label17->Name = L"label17";
 			this->label17->Size = System::Drawing::Size(34, 13);
 			this->label17->TabIndex = 40;
@@ -588,7 +601,7 @@ namespace ManoiControl {
 			// label18
 			// 
 			this->label18->AutoSize = true;
-			this->label18->Location = System::Drawing::Point(0, 227);
+			this->label18->Location = System::Drawing::Point(0, 208);
 			this->label18->Name = L"label18";
 			this->label18->Size = System::Drawing::Size(34, 13);
 			this->label18->TabIndex = 41;
@@ -597,7 +610,7 @@ namespace ManoiControl {
 			// label19
 			// 
 			this->label19->AutoSize = true;
-			this->label19->Location = System::Drawing::Point(0, 253);
+			this->label19->Location = System::Drawing::Point(0, 234);
 			this->label19->Name = L"label19";
 			this->label19->Size = System::Drawing::Size(34, 13);
 			this->label19->TabIndex = 42;
@@ -709,11 +722,77 @@ namespace ManoiControl {
 			this->button10->UseVisualStyleBackColor = true;
 			this->button10->Click += gcnew System::EventHandler(this, &Form1::button10_Click);
 			// 
+			// button11
+			// 
+			this->button11->Location = System::Drawing::Point(491, 475);
+			this->button11->Name = L"button11";
+			this->button11->Size = System::Drawing::Size(145, 23);
+			this->button11->TabIndex = 54;
+			this->button11->Text = L"Crouch";
+			this->button11->UseVisualStyleBackColor = true;
+			this->button11->Click += gcnew System::EventHandler(this, &Form1::button11_Click);
+			// 
+			// button12
+			// 
+			this->button12->Location = System::Drawing::Point(491, 446);
+			this->button12->Name = L"button12";
+			this->button12->Size = System::Drawing::Size(145, 23);
+			this->button12->TabIndex = 55;
+			this->button12->Text = L"Natural Posture";
+			this->button12->UseVisualStyleBackColor = true;
+			this->button12->Click += gcnew System::EventHandler(this, &Form1::button12_Click);
+			// 
+			// button13
+			// 
+			this->button13->Location = System::Drawing::Point(491, 504);
+			this->button13->Name = L"button13";
+			this->button13->Size = System::Drawing::Size(145, 23);
+			this->button13->TabIndex = 56;
+			this->button13->Text = L"LeftStep";
+			this->button13->UseVisualStyleBackColor = true;
+			this->button13->Click += gcnew System::EventHandler(this, &Form1::button13_Click);
+			// 
+			// button14
+			// 
+			this->button14->Location = System::Drawing::Point(245, 388);
+			this->button14->Name = L"button14";
+			this->button14->Size = System::Drawing::Size(145, 23);
+			this->button14->TabIndex = 57;
+			this->button14->Text = L"GetServosState";
+			this->button14->UseVisualStyleBackColor = true;
+			this->button14->Click += gcnew System::EventHandler(this, &Form1::button14_Click);
+			// 
+			// button15
+			// 
+			this->button15->Location = System::Drawing::Point(245, 359);
+			this->button15->Name = L"button15";
+			this->button15->Size = System::Drawing::Size(145, 23);
+			this->button15->TabIndex = 58;
+			this->button15->Text = L"LearningModeInit";
+			this->button15->UseVisualStyleBackColor = true;
+			this->button15->Click += gcnew System::EventHandler(this, &Form1::button15_Click);
+			// 
+			// button16
+			// 
+			this->button16->Location = System::Drawing::Point(246, 417);
+			this->button16->Name = L"button16";
+			this->button16->Size = System::Drawing::Size(144, 23);
+			this->button16->TabIndex = 59;
+			this->button16->Text = L"LearningModeEnd";
+			this->button16->UseVisualStyleBackColor = true;
+			this->button16->Click += gcnew System::EventHandler(this, &Form1::button16_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(653, 494);
+			this->ClientSize = System::Drawing::Size(654, 576);
+			this->Controls->Add(this->button16);
+			this->Controls->Add(this->button15);
+			this->Controls->Add(this->button14);
+			this->Controls->Add(this->button13);
+			this->Controls->Add(this->button12);
+			this->Controls->Add(this->button11);
 			this->Controls->Add(this->button10);
 			this->Controls->Add(this->label23);
 			this->Controls->Add(this->button9);
@@ -797,8 +876,18 @@ namespace ManoiControl {
 		}
 #pragma endregion
 	private: System::Void numericUpDown9_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+
+		if(checkBox1->Checked==true)
+				{
+					Manoi->SetSingleChannel(11,(int)numericUpDown9->Value+16384,1,0);
+				}
 			 }
 private: System::Void numericUpDown10_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+		if(checkBox1->Checked==true)
+				{
+					Manoi->SetSingleChannel(12,(int)numericUpDown10->Value+16384,1,0);
+				}
+
 		 }
 private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 			 Manoi = new CRobot;
@@ -904,18 +993,49 @@ private: System::Void numericUpDown2_ValueChanged(System::Object^  sender, Syste
 				}
 		 }
 private: System::Void numericUpDown16_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+		 if(checkBox1->Checked==true)
+				{
+					Manoi->SetSingleChannel(19,(int)numericUpDown16->Value+16384,1,0);
+				}
+
 		 }
 private: System::Void numericUpDown15_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+			 if(checkBox1->Checked==true)
+				{
+					Manoi->SetSingleChannel(18,(int)numericUpDown15->Value+16384,1,0);
+				}
 		 }
 private: System::Void numericUpDown14_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+		  if(checkBox1->Checked==true)
+				{
+					Manoi->SetSingleChannel(17,(int)numericUpDown14->Value+16384,1,0);
+				}
 		 }
 private: System::Void numericUpDown13_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+		  if(checkBox1->Checked==true)
+				{
+					Manoi->SetSingleChannel(16,(int)numericUpDown13->Value+16384,1,0);
+				}
 		 }
 private: System::Void numericUpDown12_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+		if(checkBox1->Checked==true)
+				{
+					Manoi->SetSingleChannel(14,(int)numericUpDown12->Value+16384,1,0);
+				}
+
 		 }
 private: System::Void numericUpDown11_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+			if(checkBox1->Checked==true)
+				{
+					Manoi->SetSingleChannel(13,(int)numericUpDown11->Value+16384,1,0);
+				}
+
 		 }
 private: System::Void numericUpDown8_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+			 if(checkBox1->Checked==true)
+				{
+					Manoi->SetSingleChannel(10,(int)numericUpDown8->Value+16384,1,0);
+				}
 		 }
 private: System::Void numericUpDown7_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 		 }
@@ -930,6 +1050,10 @@ private: System::Void numericUpDown3_ValueChanged(System::Object^  sender, Syste
 				}
 		 }
 private: System::Void numericUpDown17_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+			if(checkBox1->Checked==true)
+				{
+					Manoi->SetSingleChannel(20,(int)numericUpDown17->Value+16384,1,0);
+				}
 		 }
 private: System::Void label11_Click(System::Object^  sender, System::EventArgs^  e) {
 		 }
@@ -1059,6 +1183,30 @@ private: System::Void button10_Click(System::Object^  sender, System::EventArgs^
 
 			
 
+		 }
+private: System::Void button11_Click(System::Object^  sender, System::EventArgs^  e) {
+			 Manoi->Crouch();
+		 }
+private: System::Void button12_Click(System::Object^  sender, System::EventArgs^  e) {
+
+			 Manoi->GoToNaturalHumanPosture();
+		 }
+private: System::Void label10_Click(System::Object^  sender, System::EventArgs^  e) {
+		 }
+private: System::Void button13_Click(System::Object^  sender, System::EventArgs^  e) {
+			 Manoi->LeftStep();
+		 }
+private: System::Void button14_Click(System::Object^  sender, System::EventArgs^  e) {
+			 int positions[24];
+			 Manoi->LearningModeGetServosState(positions);
+
+		 }
+private: System::Void button15_Click(System::Object^  sender, System::EventArgs^  e) {
+
+			 Manoi->LearningModeInit();
+		 }
+private: System::Void button16_Click(System::Object^  sender, System::EventArgs^  e) {
+			 Manoi->LearningModeEnd();
 		 }
 };
 }

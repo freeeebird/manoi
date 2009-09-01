@@ -6,7 +6,10 @@ class CRobot
 private:
 	int rcb;
 	char OS; //variable with inforamtion about Operating System 0 - windows
-	//int 
+	
+	int crouch_positions[10][24];
+
+	int leftstep_position[10][24];
 	
 
 	HANDLE hCom;
@@ -19,6 +22,9 @@ private:
 	int CloseCom();
 	int SendData(unsigned char* dataBuffer, int bytesToSend);
 	int ReadData(unsigned char* dataBuffer, int bytesToRead);
+
+	void Delay(int ms);
+
 	
 	int GenerateChecksum(unsigned char* commands,int size,bool sevenbitMask);
 	
@@ -41,7 +47,6 @@ public:
 
 	int SetMotionData(int* position, unsigned char speed, char motion, char posnumber);
 	
-
 	int SetSingleHomePosition(int channel, int position, int option);
 	int SetAllHomePosition(int* position, int option);
 	int GetAllHomePosition(int channel, int* position_out, int option);
@@ -51,6 +56,19 @@ public:
 	int SetAllZero();
 	
 	int PlayMotion(char motionIndex);
+	
+	int Crouch();
+	int LeftStep();
+
+	int MotionFromArray(int* position, int framedelay, int framecount, int option);
+
+	int GoToNaturalHumanPosture();
+
+	int LearningModeInit();
+	int LearningModeGetServosState(int* positions);
+	int LearningModeEnd();
+
+	int GetCurrentServosState(int* positions);
 	
 
 
